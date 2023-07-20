@@ -26,6 +26,8 @@ public class INICIO extends javax.swing.JFrame {
         }
         initComponents();
         setLocationRelativeTo(null);
+        String texto1 = "<html><center><body>TRAGOS<br>PREPARADOS</body></center></html>";
+        T1.setText(texto1);
         //this.setExtendedState(MAXIMIZED_BOTH);
         
        // PaneldeInicio.setSize(1025, 400);
@@ -47,7 +49,7 @@ public class INICIO extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         panelRound1 = new Clases.PanelRound();
-        jLabel7 = new javax.swing.JLabel();
+        T1 = new javax.swing.JLabel();
         panelRound2 = new Clases.PanelRound();
         jLabel8 = new javax.swing.JLabel();
         panelRound3 = new Clases.PanelRound();
@@ -107,16 +109,16 @@ public class INICIO extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        panelRound1.setBackground(new java.awt.Color(255, 204, 255));
+        panelRound1.setBackground(new java.awt.Color(204, 204, 204));
         panelRound1.setRoundTopLeft(20);
         panelRound1.setRoundTopRight(20);
 
-        jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setText("TRAGOS PREPA");
-        jLabel7.addMouseListener(new java.awt.event.MouseAdapter() {
+        T1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        T1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        T1.setText("TRAGOS PREPA");
+        T1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel7MouseClicked(evt);
+                T1MouseClicked(evt);
             }
         });
 
@@ -124,11 +126,11 @@ public class INICIO extends javax.swing.JFrame {
         panelRound1.setLayout(panelRound1Layout);
         panelRound1Layout.setHorizontalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+            .addComponent(T1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
         );
         panelRound1Layout.setVerticalGroup(
             panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(T1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         panelRound2.setBackground(new java.awt.Color(102, 204, 255));
@@ -529,7 +531,7 @@ public class INICIO extends javax.swing.JFrame {
     PaneldeInicio.repaint();
     }//GEN-LAST:event_jLabel2MouseClicked
 
-    private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
+    private void T1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T1MouseClicked
     MenuTragos op3 = new MenuTragos();
     op3.setSize(1025, 400);
     op3.setLocation(0, 0);
@@ -537,7 +539,7 @@ public class INICIO extends javax.swing.JFrame {
     PaneldeInicio.add(op3,BorderLayout.CENTER);
     PaneldeInicio.revalidate();
     PaneldeInicio.repaint();
-    }//GEN-LAST:event_jLabel7MouseClicked
+    }//GEN-LAST:event_T1MouseClicked
 
     private void jLabel8MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel8MouseClicked
     MenuMariscos op4 = new MenuMariscos();
@@ -611,6 +613,7 @@ public class INICIO extends javax.swing.JFrame {
     private javax.swing.JTextField NoOrden;
     private javax.swing.JTextField Pago;
     private javax.swing.JPanel PaneldeInicio;
+    private javax.swing.JLabel T1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -620,7 +623,6 @@ public class INICIO extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
