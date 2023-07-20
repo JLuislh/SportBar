@@ -90,6 +90,11 @@ public class MenuCervezas extends javax.swing.JPanel {
         T1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         T1.setText("jLabel1");
+        T1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                T1MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelRound3Layout = new javax.swing.GroupLayout(panelRound3);
         panelRound3.setLayout(panelRound3Layout);
@@ -727,6 +732,10 @@ public class MenuCervezas extends javax.swing.JPanel {
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void T1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T1MouseClicked
+        System.out.println(T1.getText());
+    }//GEN-LAST:event_T1MouseClicked
    
      private void NOmbresEtiquetas(){
     
@@ -744,38 +753,37 @@ public class MenuCervezas extends javax.swing.JPanel {
         T6.setText(texto6);
     String texto7 = "<html><center><body>CERVEZA<br>CORONA<br><font color='RED'>Q18.00</font></body></center></html>";
         T7.setText(texto7);
-    String texto8 = "<html><center><body>CUBETAZO<br>GALLO</center></html>";
+    String texto8 = "<html><center><body>CUBETAZO<br>GALLO<br><font color='RED'>Q100.00</center></html>";
         T8.setText(texto8);    
-    String texto9 = "<html><center><body>CUBETAZO<br>MONTECARLO</body></center></html>";
+    String texto9 = "<html><center><body>CUBETAZO<br>MONTECARLO<br><font color='RED'>Q115.00</body></center></html>";
         T9.setText(texto9);
-    String texto10 = "<html><center><body><body>CUBETAZO<br>CABRO EXTRA</body></center></html>";
+    String texto10 = "<html><center><body><body>CUBETAZO<br>CABRO EXTRA<br><font color='RED'>Q100.00</body></center></html>";
         T10.setText(texto10);  
-    String texto11 = "<html><center><body>CUBETAZO<br>CABRO RESERVA</body></center></html>";
+    String texto11 = "<html><center><body>CUBETAZO<br>CABRO RESERVA<br><font color='RED'>Q115</body></center></html>";
         T11.setText(texto11);
-    String texto12 = "<html><center><body>CUBETAZO<br>HEINEKEN</center></html>";
+    String texto12 = "<html><center><body>CUBETAZO<br>HEINEKEN<br><font color='RED'>Q115.00</center></html>";
         T12.setText(texto12);
-    String texto13 = "<html><center><body>CUBETAZO<br>MODELO ESPECIAL</body></center></html>";
+    String texto13 = "<html><center><body>CUBETAZO<br>MODELO ESPECIAL<br><font color='RED'>Q100.00</body></center></html>";
         T13.setText(texto13);    
-    String texto14 = "<html><center><body>CUBETAZO<br>CORONA</body></center></html>";
+    String texto14 = "<html><center><body>CUBETAZO<br>CORONA<br><font color='RED'>Q100.00</body></center></html>";
         T14.setText(texto14);
-    String texto15 = "<html><center><body>CERVEZA DE BARRIL<br>TARRO CLARA</body></center></html>";
+    String texto15 = "<html><center><body>CERVEZA DE BARRIL<br>TARRO CLARA<br><font color='RED'>Q25.00</body></center></html>";
         T15.setText(texto15);  
-    String texto16 = "<html><center><body>CERVEZA DE BARRIL<br>TARRO OSCURA</body></center></html>";
+    String texto16 = "<html><center><body>CERVEZA DE BARRIL<br>TARRO OSCURA<br><font color='RED'>Q25.00</body></center></html>";
         T16.setText(texto16);
-    String texto17 = "<html><center><body>CERVEZA DE BARRIL<br>TARRO MIXTA</body></center></html>";
+    String texto17 = "<html><center><body>CERVEZA DE BARRIL<br>TARRO MIXTA<br><font color='RED'>Q25.00</body></center></html>";
         T17.setText(texto17);
-    String texto18 = "<html><center><body>CERVEZA DE BARRIL<br>LITRO CLARA</body></center></html>";
+    String texto18 = "<html><center><body>CERVEZA DE BARRIL<br>LITRO CLARA<br><font color='RED'>Q40.00</body></center></html>";
         T18.setText(texto18);    
-    String texto19 = "<html><center><body>CERVEZA DE BARRIL<br>LITRO CLARA</body></center></html>";
+    String texto19 = "<html><center><body>CERVEZA DE BARRIL<br>LITRO CLARA<br><font color='RED'>Q40.00</body></center></html>";
         T19.setText(texto19);
-    String texto20 = "<html><center><body>CERVEZA DE BARRIL<br>LITRO CLARA</body></center></html>";
+    String texto20 = "<html><center><body>CERVEZA DE BARRIL<br>LITRO CLARA<br><font color='RED'>Q40.00</body></center></html>";
         T20.setText(texto20);      
-    String texto21 = "<html><center><body>JIRAFA CERVEZA<br>GALLO</body></center></html>";
+    String texto21 = "<html><center><body>JIRAFA CERVEZA<br>GALLO<br><font color='RED'>Q100.00</body></center></html>";
         T21.setText(texto21);
-    String texto22 = "<html><center><body>JIRAFA CERVEZA<br>CABRO EXTRA</body></center></html>";
+    String texto22 = "<html><center><body>JIRAFA CERVEZA<br>CABRO EXTRA<br><font color='RED'>Q100.00</body></center></html>";
         T22.setText(texto22);    
-        
-        
+                
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
