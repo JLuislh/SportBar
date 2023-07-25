@@ -1,4 +1,4 @@
-package Class;
+package Clases;
 
 
 import java.awt.Graphics;
