@@ -4,17 +4,41 @@
  */
 package Formularios;
 
+import Clases.BDProductos;
+import Clases.InsertarProducto;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author jluis
  */
 public class NuevaORDEN extends javax.swing.JFrame {
-
+     int id_pedido;
     /**
      * Creates new form NuevaORDEN
      */
     public NuevaORDEN() {
         initComponents();
+    }
+    
+    
+    public void crear(){
+    
+     try {
+            
+             InsertarProducto p = new InsertarProducto();
+            BDProductos.InsertarPedido(p);
+            id_pedido = p.getIdregresoPedido();
+        } catch (Exception ex) {
+            //Logger.getLogger(ConsultaPedidos.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        
+                  //System.out.println("ID ="+id_pedido);
+                  INICIO F = new INICIO(id_pedido);
+                  F.setVisible(true);
+                  this.dispose();
+    
     }
 
     /**
@@ -28,6 +52,7 @@ public class NuevaORDEN extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         P1 = new Clases.PanelRound();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,15 +65,22 @@ public class NuevaORDEN extends javax.swing.JFrame {
         P1.setRoundTopLeft(20);
         P1.setRoundTopRight(20);
 
+        jLabel1.setText("jLabel1");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel1MousePressed(evt);
+            }
+        });
+
         javax.swing.GroupLayout P1Layout = new javax.swing.GroupLayout(P1);
         P1.setLayout(P1Layout);
         P1Layout.setHorizontalGroup(
             P1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 180, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
         );
         P1Layout.setVerticalGroup(
             P1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 79, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -81,6 +113,10 @@ public class NuevaORDEN extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLabel1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MousePressed
+        crear();
+    }//GEN-LAST:event_jLabel1MousePressed
 
     /**
      * @param args the command line arguments
@@ -119,6 +155,7 @@ public class NuevaORDEN extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Clases.PanelRound P1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

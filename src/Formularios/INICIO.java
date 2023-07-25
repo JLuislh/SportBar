@@ -4,6 +4,7 @@
  */
 package Formularios;
 
+import static INICIO.Principal.id_pedido;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -15,20 +16,23 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author jluis
  */
 public class INICIO extends javax.swing.JFrame {
+    public static int id_pedido;
 
     /**
      * Creates new form INICIO
      */
-    public INICIO() {
+    public INICIO(int i) {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
         }
         initComponents();
+        this.id_pedido = i;
         setLocationRelativeTo(null);
         String texto1 = "<html><center><body>TRAGOS<br>PREPARADOS</body></center></html>";
         T1.setText(texto1);
+        NoOrden.setText(String.valueOf(id_pedido));
         
         //this.setExtendedState(MAXIMIZED_BOTH);
         
@@ -616,7 +620,7 @@ public class INICIO extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new INICIO().setVisible(true);
+               // new INICIO().setVisible();
             }
         });
     }
