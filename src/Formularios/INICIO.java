@@ -5,6 +5,7 @@
 package Formularios;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -28,6 +29,7 @@ public class INICIO extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         String texto1 = "<html><center><body>TRAGOS<br>PREPARADOS</body></center></html>";
         T1.setText(texto1);
+        
         //this.setExtendedState(MAXIMIZED_BOTH);
         
        // PaneldeInicio.setSize(1025, 400);
