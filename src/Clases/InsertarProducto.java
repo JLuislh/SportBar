@@ -23,7 +23,15 @@ public class InsertarProducto {
     private int tipo;
     private String sin;
     private double precio;
+    private double Total;
 
+    public double getTotal() {
+        return Total;
+    }
+
+    public void setTotal(double Total) {
+        this.Total = Total;
+    }
     public int getId_producto_pedidos() {
         return id_producto_pedidos;
     }

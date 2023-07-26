@@ -4,9 +4,18 @@
  */
 package Formularios;
 
+import Clases.BDConexionSP;
+import Clases.BDIngresos;
+import Clases.InsertarProducto;
+import clas.BDConexion;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -14,13 +23,17 @@ import javax.swing.Timer;
  * @author jluis
  */
 public class MenuCervezas extends javax.swing.JPanel {
-
+     int id_pedido = 0;
+     int id_producto = 0;
+     int id_producto_pedido = 0;
+     int existe = 0;
     /**
      * Creates new form MenuCervezas
      */
-    public MenuCervezas() {
+    public MenuCervezas(int a) {
         initComponents();
         NOmbresEtiquetas();
+        this.id_pedido=a;
     }
     
      Timer timer = new Timer(300, new ActionListener()
@@ -52,6 +65,92 @@ public class MenuCervezas extends javax.swing.JPanel {
        P22.setBackground(Original);
      }
     });
+     
+    private void InsertarProductoPedido() {
+       
+        try {
+            InsertarProducto p1 = new InsertarProducto();
+            p1.setId_pedido(id_pedido);
+            p1.setId_producto(id_producto);
+            BDIngresos.InsertarProducto_Pedido(p1);
+            id_producto_pedido = p1.getIdregreso();
+            //JOptionPane.showMessageDialog(null, "Producto Agregado");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "QUE MIERDA PASA= "+e);
+        }
+         INICIO.ListarProductosPedidos();
+         existe = 0;
+    }
+     
+     private void UpdateCantidad() {
+        try {
+                 BDConexionSP conecta = new BDConexionSP();
+                 Connection con = conecta.getConexion();
+                 PreparedStatement smtp = null;
+                 smtp = con.prepareStatement("update VENTAS SET CANTIDAD = CANTIDAD+1, TOTAL = CANTIDAD*(SELECT PRECIO FROM productos WHERE CODIGO = "+id_producto+") WHERE NOORDEN = "+id_pedido+" AND CODIGO = "+id_producto);
+                 smtp.executeUpdate();
+                 con.close();
+                 smtp.close();
+               // JOptionPane.showMessageDialog(null, "Guardado...");
+            } catch (SQLException ex) {
+                JOptionPane.showConfirmDialog(null, ex);
+            }
+        
+        INICIO.ListarProductosPedidos();
+        existe = 0;
+    }
+     
+     public  void BuscarExistencia() {
+            try {
+                BDConexion conecta = new BDConexion();
+                Connection cn = conecta.getConexion();
+                java.sql.Statement stmt = cn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT cantidad as EXISTE FROM sporbar.ventas  WHERE NOORDEN =  "+id_pedido+" AND CODIGO ="+id_producto );
+                while (rs.next()) {
+                    existe = rs.getInt(1);
+                }
+                rs.close();
+                stmt.close();
+                cn.close();
+            } catch (Exception error) {
+                System.out.print(error);
+            }
+            
+        }
+     
+     private void UpdateCantidadMenos() {
+        try {
+                 BDConexionSP conecta = new BDConexionSP();
+                 Connection con = conecta.getConexion();
+                 PreparedStatement smtp = null;
+                 smtp = con.prepareStatement("update VENTAS SET CANTIDAD = CANTIDAD-1,Total = TOTAL-(SELECT PRECIO FROM productos WHERE CODIGO = "+id_producto+") WHERE NOORDEN = "+id_pedido+" AND CODIGO = "+id_producto);
+                 smtp.executeUpdate();
+                 con.close();
+                 smtp.close();
+               // JOptionPane.showMessageDialog(null, "Guardado...");
+            } catch (SQLException ex) {
+                JOptionPane.showConfirmDialog(null, ex);
+            }
+        
+        INICIO.ListarProductosPedidos();
+        existe = 0;
+    }
+     
+    private void eliminarProducto(){
+        try {
+            BDConexionSP conecta = new BDConexionSP();
+            Connection con = conecta.getConexion();
+            PreparedStatement ps = null;
+            ps= con.prepareStatement("delete from Ventas where noorden="+id_pedido+" and codigo = "+id_producto);
+            ps.executeUpdate();
+            con.close();
+            ps.close();
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null,"ERROr = "+ex);
+        }
+        INICIO.ListarProductosPedidos();
+        existe = 0;
+ } 
     
     
     
@@ -126,7 +225,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T1.setText("jLabel1");
+        T1.setText("cERVEZA gallo");
         T1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 T1MouseClicked(evt);
@@ -156,7 +255,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T2.setText("jLabel2");
+        T2.setText("montecarlo");
         T2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T2MousePressed(evt);
@@ -183,7 +282,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T3.setText("jLabel3");
+        T3.setText("cabro extra");
         T3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T3MousePressed(evt);
@@ -210,7 +309,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T4.setText("jLabel4");
+        T4.setText("cabro reserva");
         T4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T4MousePressed(evt);
@@ -237,7 +336,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T5.setText("jLabel5");
+        T5.setText("heineken");
         T5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T5MousePressed(evt);
@@ -264,7 +363,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T6.setText("jLabel6");
+        T6.setText("modelo especial");
         T6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T6MousePressed(evt);
@@ -291,7 +390,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T7.setText("jLabel7");
+        T7.setText("corona");
         T7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T7MousePressed(evt);
@@ -361,7 +460,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T9.setText("jLabel9");
+        T9.setText("cubetazo montecarlo");
         T9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T9MousePressed(evt);
@@ -390,7 +489,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T10.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T10.setText("jLabel10");
+        T10.setText("cubetazo cabro extra");
         T10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T10MousePressed(evt);
@@ -417,7 +516,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T8.setText("jLabel8");
+        T8.setText("cubetazo gallo");
         T8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T8MousePressed(evt);
@@ -444,7 +543,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T11.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T11.setText("jLabel11");
+        T11.setText("cubetazo cabro reserva");
         T11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T11MousePressed(evt);
@@ -471,7 +570,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T12.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T12.setText("jLabel12");
+        T12.setText("cubetazo heineken");
         T12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T12MousePressed(evt);
@@ -498,7 +597,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T13.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T13.setText("jLabel13");
+        T13.setText("cubetazo  modelo");
         T13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T13MousePressed(evt);
@@ -525,7 +624,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T14.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T14.setText("jLabel14");
+        T14.setText("cubetazo corona");
         T14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T14MousePressed(evt);
@@ -552,7 +651,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T21.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T21.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T21.setText("jLabel20");
+        T21.setText("cjirafa gallo");
         T21.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T21MousePressed(evt);
@@ -579,7 +678,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T22.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T22.setText("jLabel20");
+        T22.setText("jirafa cabro");
         T22.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T22MousePressed(evt);
@@ -665,7 +764,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T15.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T15.setText("jLabel15");
+        T15.setText("cerveza barril tarro clara");
         T15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T15MousePressed(evt);
@@ -692,7 +791,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T16.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T16.setText("jLabel16");
+        T16.setText("cerveza barril tarro oscura");
         T16.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T16MousePressed(evt);
@@ -703,7 +802,7 @@ public class MenuCervezas extends javax.swing.JPanel {
         P18.setLayout(P18Layout);
         P18Layout.setHorizontalGroup(
             P18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(T16, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+            .addComponent(T16, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         P18Layout.setVerticalGroup(
             P18Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -719,7 +818,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T17.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T17.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T17.setText("jLabel17");
+        T17.setText("cerveza barril tarro mixta");
         T17.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T17MousePressed(evt);
@@ -746,7 +845,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T18.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T18.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T18.setText("jLabel18");
+        T18.setText("cerveza barril litro clara");
         T18.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T18MousePressed(evt);
@@ -773,7 +872,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T19.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T19.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T19.setText("jLabel19");
+        T19.setText("cerveza barril litro oscura");
         T19.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T19MousePressed(evt);
@@ -800,7 +899,7 @@ public class MenuCervezas extends javax.swing.JPanel {
 
         T20.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T20.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T20.setText("jLabel20");
+        T20.setText("cerveza barril litro mixta");
         T20.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T20MousePressed(evt);
@@ -884,10 +983,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T1MousePressed
         if ((evt.getModifiers() & 4) !=0){
+            id_producto = 112;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P1.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 112;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P1.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -896,10 +1001,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T2MousePressed
       if ((evt.getModifiers() & 4) !=0){
+            id_producto = 113;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P2.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 113;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P2.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -908,10 +1019,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T3MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 114;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P3.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 114;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P3.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -920,10 +1037,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T4MousePressed
         if ((evt.getModifiers() & 4) !=0){
+            id_producto = 115;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P4.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 115;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P4.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -932,10 +1055,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T5MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 116;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P5.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 116;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P5.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -944,10 +1073,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T6MousePressed
       if ((evt.getModifiers() & 4) !=0){
+            id_producto = 117;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P6.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 117;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P6.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -956,10 +1091,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T7MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 118;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P7.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 118;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P7.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -968,10 +1109,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T8MousePressed
       if ((evt.getModifiers() & 4) !=0){
+            id_producto = 119;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P8.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 119;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P8.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -980,10 +1127,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T9MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 120;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P9.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 120;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P9.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -992,10 +1145,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T10MousePressed
         if ((evt.getModifiers() & 4) !=0){
+            id_producto = 121;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P10.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 121;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P10.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -1004,10 +1163,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T11MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 122;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P11.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 122;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P11.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -1016,10 +1181,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T12MousePressed
         if ((evt.getModifiers() & 4) !=0){
+            id_producto = 123;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P12.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 123;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P12.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -1028,10 +1199,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T13MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T13MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 124;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P13.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 124;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P13.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -1040,10 +1217,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T14MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T14MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 125;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P14.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 125;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P14.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -1052,10 +1235,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T21MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T21MousePressed
       if ((evt.getModifiers() & 4) !=0){
+            id_producto = 132;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P15.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 132;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P15.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -1064,10 +1253,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T22MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T22MousePressed
       if ((evt.getModifiers() & 4) !=0){
+            id_producto = 133;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P16.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 133;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P16.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -1076,10 +1271,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T15MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T15MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 126;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P17.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 126;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P17.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -1088,10 +1289,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T16MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T16MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 127;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P18.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 127;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P18.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -1100,10 +1307,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T17MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T17MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 128;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P19.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 128;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P19.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -1112,10 +1325,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T18MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T18MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 129;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P20.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 129;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P20.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -1124,10 +1343,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T19MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T19MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 130;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P21.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 130;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P21.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -1136,10 +1361,16 @@ public class MenuCervezas extends javax.swing.JPanel {
 
     private void T20MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T20MousePressed
       if ((evt.getModifiers() & 4) !=0){
+            id_producto = 131;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P22.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 131;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P22.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -1184,9 +1415,9 @@ public class MenuCervezas extends javax.swing.JPanel {
         T17.setText(texto17);
     String texto18 = "<html><center><body>CERVEZA DE BARRIL<br>LITRO CLARA<br><font color='RED'>Q40.00</body></center></html>";
         T18.setText(texto18);    
-    String texto19 = "<html><center><body>CERVEZA DE BARRIL<br>LITRO CLARA<br><font color='RED'>Q40.00</body></center></html>";
+    String texto19 = "<html><center><body>CERVEZA DE BARRIL<br>LITRO OSCURA<br><font color='RED'>Q40.00</body></center></html>";
         T19.setText(texto19);
-    String texto20 = "<html><center><body>CERVEZA DE BARRIL<br>LITRO CLARA<br><font color='RED'>Q40.00</body></center></html>";
+    String texto20 = "<html><center><body>CERVEZA DE BARRIL<br>LITRO MIXTA<br><font color='RED'>Q40.00</body></center></html>";
         T20.setText(texto20);      
     String texto21 = "<html><center><body>JIRAFA CERVEZA<br>GALLO<br><font color='RED'>Q100.00</body></center></html>";
         T21.setText(texto21);

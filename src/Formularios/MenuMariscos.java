@@ -4,9 +4,18 @@
  */
 package Formularios;
 
+import Clases.BDConexionSP;
+import Clases.BDIngresos;
+import Clases.InsertarProducto;
+import clas.BDConexion;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -14,13 +23,19 @@ import javax.swing.Timer;
  * @author jluis
  */
 public class MenuMariscos extends javax.swing.JPanel {
+    
+     int id_pedido = 0;
+     int id_producto = 0;
+     int id_producto_pedido = 0;
+     int existe = 0;
 
     /**
      * Creates new form MenuMariscos
      */
-    public MenuMariscos() {
+    public MenuMariscos(int a) {
         initComponents();
         TextosLabel();
+        this.id_pedido=a;
     }
     
     Timer timer = new Timer(300, new ActionListener()
@@ -35,6 +50,94 @@ public class MenuMariscos extends javax.swing.JPanel {
        
      }
     });
+    
+    
+    private void InsertarProductoPedido() {
+       
+        try {
+            InsertarProducto p1 = new InsertarProducto();
+            p1.setId_pedido(id_pedido);
+            p1.setId_producto(id_producto);
+            BDIngresos.InsertarProducto_Pedido(p1);
+            id_producto_pedido = p1.getIdregreso();
+            //JOptionPane.showMessageDialog(null, "Producto Agregado");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "QUE MIERDA PASA= "+e);
+        }
+         INICIO.ListarProductosPedidos();
+         existe = 0;
+    }
+     
+     private void UpdateCantidad() {
+        try {
+                 BDConexionSP conecta = new BDConexionSP();
+                 Connection con = conecta.getConexion();
+                 PreparedStatement smtp = null;
+                 smtp = con.prepareStatement("update VENTAS SET CANTIDAD = CANTIDAD+1, TOTAL = CANTIDAD*(SELECT PRECIO FROM productos WHERE CODIGO = "+id_producto+") WHERE NOORDEN = "+id_pedido+" AND CODIGO = "+id_producto);
+                 smtp.executeUpdate();
+                 con.close();
+                 smtp.close();
+               // JOptionPane.showMessageDialog(null, "Guardado...");
+            } catch (SQLException ex) {
+                JOptionPane.showConfirmDialog(null, ex);
+            }
+        
+        INICIO.ListarProductosPedidos();
+        existe = 0;
+    }
+     
+     public  void BuscarExistencia() {
+            try {
+                BDConexion conecta = new BDConexion();
+                Connection cn = conecta.getConexion();
+                java.sql.Statement stmt = cn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT cantidad as EXISTE FROM sporbar.ventas  WHERE NOORDEN =  "+id_pedido+" AND CODIGO ="+id_producto );
+                while (rs.next()) {
+                    existe = rs.getInt(1);
+                }
+                rs.close();
+                stmt.close();
+                cn.close();
+            } catch (Exception error) {
+                System.out.print(error);
+            }
+            
+        }
+     
+     private void UpdateCantidadMenos() {
+        try {
+                 BDConexionSP conecta = new BDConexionSP();
+                 Connection con = conecta.getConexion();
+                 PreparedStatement smtp = null;
+                 smtp = con.prepareStatement("update VENTAS SET CANTIDAD = CANTIDAD-1,Total = TOTAL-(SELECT PRECIO FROM productos WHERE CODIGO = "+id_producto+") WHERE NOORDEN = "+id_pedido+" AND CODIGO = "+id_producto);
+                 smtp.executeUpdate();
+                 con.close();
+                 smtp.close();
+               // JOptionPane.showMessageDialog(null, "Guardado...");
+            } catch (SQLException ex) {
+                JOptionPane.showConfirmDialog(null, ex);
+            }
+        
+        INICIO.ListarProductosPedidos();
+        existe = 0;
+    }
+     
+    private void eliminarProducto(){
+        try {
+            BDConexionSP conecta = new BDConexionSP();
+            Connection con = conecta.getConexion();
+            PreparedStatement ps = null;
+            ps= con.prepareStatement("delete from Ventas where noorden="+id_pedido+" and codigo = "+id_producto);
+            ps.executeUpdate();
+            con.close();
+            ps.close();
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null,"ERROr = "+ex);
+        }
+        INICIO.ListarProductosPedidos();
+        existe = 0;
+ }
+     
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -65,7 +168,7 @@ public class MenuMariscos extends javax.swing.JPanel {
 
         T3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T3.setText("jLabel3");
+        T3.setText("ceviche grande");
         T3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T3MousePressed(evt);
@@ -92,7 +195,7 @@ public class MenuMariscos extends javax.swing.JPanel {
 
         T1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T1.setText("jLabel1");
+        T1.setText("aguachile");
         T1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T1MousePressed(evt);
@@ -119,7 +222,7 @@ public class MenuMariscos extends javax.swing.JPanel {
 
         T4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T4.setText("jLabel4");
+        T4.setText("ceviche mediano");
         T4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T4MousePressed(evt);
@@ -146,7 +249,7 @@ public class MenuMariscos extends javax.swing.JPanel {
 
         T2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T2.setText("jLabel2");
+        T2.setText("alitas");
         T2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T2MousePressed(evt);
@@ -196,10 +299,16 @@ public class MenuMariscos extends javax.swing.JPanel {
 
     private void T1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T1MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 149;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P1.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 149;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P1.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -208,10 +317,16 @@ public class MenuMariscos extends javax.swing.JPanel {
 
     private void T2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T2MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 152;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P2.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 152;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P2.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -220,10 +335,16 @@ public class MenuMariscos extends javax.swing.JPanel {
 
     private void T3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T3MousePressed
         if ((evt.getModifiers() & 4) !=0){
+             id_producto = 150;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P3.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+             id_producto = 150;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P3.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -232,10 +353,16 @@ public class MenuMariscos extends javax.swing.JPanel {
 
     private void T4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T4MousePressed
       if ((evt.getModifiers() & 4) !=0){
+           id_producto = 151;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P4.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+           id_producto = 151;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P4.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();

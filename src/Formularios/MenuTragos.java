@@ -4,9 +4,18 @@
  */
 package Formularios;
 
+import Clases.BDConexionSP;
+import Clases.BDIngresos;
+import Clases.InsertarProducto;
+import clas.BDConexion;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
 /**
@@ -14,13 +23,18 @@ import javax.swing.Timer;
  * @author jluis
  */
 public class MenuTragos extends javax.swing.JPanel {
-
+     
+    int id_pedido = 0;
+     int id_producto = 0;
+     int id_producto_pedido = 0;
+     int existe = 0;
     /**
      * Creates new form MenuTragos
      */
-    public MenuTragos() {
+    public MenuTragos(int a) {
         initComponents();
         TextosLabel();
+        this.id_pedido=a;
     }
 
     Timer timer = new Timer(300, new ActionListener()
@@ -45,6 +59,93 @@ public class MenuTragos extends javax.swing.JPanel {
        P15.setBackground(Original);
      }
     });
+    
+    
+    private void InsertarProductoPedido() {
+       
+        try {
+            InsertarProducto p1 = new InsertarProducto();
+            p1.setId_pedido(id_pedido);
+            p1.setId_producto(id_producto);
+            BDIngresos.InsertarProducto_Pedido(p1);
+            id_producto_pedido = p1.getIdregreso();
+            //JOptionPane.showMessageDialog(null, "Producto Agregado");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "QUE MIERDA PASA= "+e);
+        }
+         INICIO.ListarProductosPedidos();
+         existe = 0;
+    }
+     
+     private void UpdateCantidad() {
+        try {
+                 BDConexionSP conecta = new BDConexionSP();
+                 Connection con = conecta.getConexion();
+                 PreparedStatement smtp = null;
+                 smtp = con.prepareStatement("update VENTAS SET CANTIDAD = CANTIDAD+1, TOTAL = CANTIDAD*(SELECT PRECIO FROM productos WHERE CODIGO = "+id_producto+") WHERE NOORDEN = "+id_pedido+" AND CODIGO = "+id_producto);
+                 smtp.executeUpdate();
+                 con.close();
+                 smtp.close();
+               // JOptionPane.showMessageDialog(null, "Guardado...");
+            } catch (SQLException ex) {
+                JOptionPane.showConfirmDialog(null, ex);
+            }
+        
+        INICIO.ListarProductosPedidos();
+        existe = 0;
+    }
+     
+     public  void BuscarExistencia() {
+            try {
+                BDConexion conecta = new BDConexion();
+                Connection cn = conecta.getConexion();
+                java.sql.Statement stmt = cn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT cantidad as EXISTE FROM sporbar.ventas  WHERE NOORDEN =  "+id_pedido+" AND CODIGO ="+id_producto );
+                while (rs.next()) {
+                    existe = rs.getInt(1);
+                }
+                rs.close();
+                stmt.close();
+                cn.close();
+            } catch (Exception error) {
+                System.out.print(error);
+            }
+            
+        }
+     
+     private void UpdateCantidadMenos() {
+        try {
+                 BDConexionSP conecta = new BDConexionSP();
+                 Connection con = conecta.getConexion();
+                 PreparedStatement smtp = null;
+                 smtp = con.prepareStatement("update VENTAS SET CANTIDAD = CANTIDAD-1,Total = TOTAL-(SELECT PRECIO FROM productos WHERE CODIGO = "+id_producto+") WHERE NOORDEN = "+id_pedido+" AND CODIGO = "+id_producto);
+                 smtp.executeUpdate();
+                 con.close();
+                 smtp.close();
+               // JOptionPane.showMessageDialog(null, "Guardado...");
+            } catch (SQLException ex) {
+                JOptionPane.showConfirmDialog(null, ex);
+            }
+        
+        INICIO.ListarProductosPedidos();
+        existe = 0;
+    }
+     
+    private void eliminarProducto(){
+        try {
+            BDConexionSP conecta = new BDConexionSP();
+            Connection con = conecta.getConexion();
+            PreparedStatement ps = null;
+            ps= con.prepareStatement("delete from Ventas where noorden="+id_pedido+" and codigo = "+id_producto);
+            ps.executeUpdate();
+            con.close();
+            ps.close();
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null,"ERROr = "+ex);
+        }
+        INICIO.ListarProductosPedidos();
+        existe = 0;
+ }
     
     
     /**
@@ -98,7 +199,7 @@ public class MenuTragos extends javax.swing.JPanel {
 
         T1.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T1.setText("jLabel1");
+        T1.setText("vip");
         T1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T1MousePressed(evt);
@@ -125,7 +226,7 @@ public class MenuTragos extends javax.swing.JPanel {
 
         T4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T4.setText("jLabel4");
+        T4.setText("corona preparada");
         T4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T4MousePressed(evt);
@@ -152,7 +253,7 @@ public class MenuTragos extends javax.swing.JPanel {
 
         T7.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T7.setText("jLabel7");
+        T7.setText("gin tonic");
         T7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T7MousePressed(evt);
@@ -179,7 +280,7 @@ public class MenuTragos extends javax.swing.JPanel {
 
         T10.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T10.setText("jLabel10");
+        T10.setText("quita cruda");
         T10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T10MousePressed(evt);
@@ -206,7 +307,7 @@ public class MenuTragos extends javax.swing.JPanel {
 
         T13.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T13.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T13.setText("jLabel13");
+        T13.setText("shot tequila");
         T13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T13MousePressed(evt);
@@ -233,7 +334,7 @@ public class MenuTragos extends javax.swing.JPanel {
 
         T2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T2.setText("jLabel2");
+        T2.setText("cuba libre");
         T2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T2MousePressed(evt);
@@ -260,7 +361,7 @@ public class MenuTragos extends javax.swing.JPanel {
 
         T5.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T5.setText("jLabel5");
+        T5.setText("cuba");
         T5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T5MousePressed(evt);
@@ -287,7 +388,7 @@ public class MenuTragos extends javax.swing.JPanel {
 
         T8.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T8.setText("jLabel8");
+        T8.setText("jagger bom");
         T8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T8MousePressed(evt);
@@ -314,7 +415,7 @@ public class MenuTragos extends javax.swing.JPanel {
 
         T11.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T11.setText("jLabel11");
+        T11.setText("chelada");
         T11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T11MousePressed(evt);
@@ -341,7 +442,7 @@ public class MenuTragos extends javax.swing.JPanel {
 
         T14.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T14.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T14.setText("jLabel14");
+        T14.setText("whiski las rocas");
         T14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T14MousePressed(evt);
@@ -368,7 +469,7 @@ public class MenuTragos extends javax.swing.JPanel {
 
         T3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T3.setText("jLabel3");
+        T3.setText("tormenta negra");
         T3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T3MousePressed(evt);
@@ -395,7 +496,7 @@ public class MenuTragos extends javax.swing.JPanel {
 
         T6.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T6.setText("jLabel6");
+        T6.setText("michelada de la casa");
         T6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T6MousePressed(evt);
@@ -422,7 +523,7 @@ public class MenuTragos extends javax.swing.JPanel {
 
         T9.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T9.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T9.setText("jLabel9");
+        T9.setText("margarona");
         T9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T9MousePressed(evt);
@@ -449,7 +550,7 @@ public class MenuTragos extends javax.swing.JPanel {
 
         T12.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T12.setText("jLabel12");
+        T12.setText("cimarrona");
         T12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T12MousePressed(evt);
@@ -476,7 +577,7 @@ public class MenuTragos extends javax.swing.JPanel {
 
         T15.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T15.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T15.setText("jLabel15");
+        T15.setText("chancla");
         T15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T15MousePressed(evt);
@@ -565,10 +666,16 @@ public class MenuTragos extends javax.swing.JPanel {
 
     private void T1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T1MousePressed
        if ((evt.getModifiers() & 4) !=0){
+           id_producto = 134;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P1.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+           id_producto = 134;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P1.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -577,10 +684,16 @@ public class MenuTragos extends javax.swing.JPanel {
 
     private void T4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T4MousePressed
        if ((evt.getModifiers() & 4) !=0){
+           id_producto = 137;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P2.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 137;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P2.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -589,10 +702,16 @@ public class MenuTragos extends javax.swing.JPanel {
 
     private void T7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T7MousePressed
        if ((evt.getModifiers() & 4) !=0){
+           id_producto = 140;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P3.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 140;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P3.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -601,10 +720,16 @@ public class MenuTragos extends javax.swing.JPanel {
 
     private void T10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T10MousePressed
         if ((evt.getModifiers() & 4) !=0){
+            id_producto = 143;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P4.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 143;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P4.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -613,10 +738,16 @@ public class MenuTragos extends javax.swing.JPanel {
 
     private void T13MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T13MousePressed
        if ((evt.getModifiers() & 4) !=0){
+           id_producto = 146;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P5.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 146;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P5.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -625,10 +756,16 @@ public class MenuTragos extends javax.swing.JPanel {
 
     private void T2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T2MousePressed
        if ((evt.getModifiers() & 4) !=0){
+           id_producto = 135;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P6.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 135;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P6.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -637,10 +774,16 @@ public class MenuTragos extends javax.swing.JPanel {
 
     private void T5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T5MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 138;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P7.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 138;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P7.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -649,10 +792,16 @@ public class MenuTragos extends javax.swing.JPanel {
 
     private void T8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T8MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 141;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P8.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 141;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P8.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -661,10 +810,16 @@ public class MenuTragos extends javax.swing.JPanel {
 
     private void T11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T11MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 144;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P9.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 144;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P9.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -673,10 +828,16 @@ public class MenuTragos extends javax.swing.JPanel {
 
     private void T14MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T14MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 147;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P10.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 147;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P10.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -685,10 +846,16 @@ public class MenuTragos extends javax.swing.JPanel {
 
     private void T3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T3MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 136;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P11.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 136;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P11.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -697,10 +864,16 @@ public class MenuTragos extends javax.swing.JPanel {
 
     private void T6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T6MousePressed
         if ((evt.getModifiers() & 4) !=0){
+            id_producto = 139;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P12.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 139;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P12.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -709,10 +882,16 @@ public class MenuTragos extends javax.swing.JPanel {
 
     private void T9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T9MousePressed
         if ((evt.getModifiers() & 4) !=0){
+            id_producto = 142;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P13.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 142;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P13.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -721,10 +900,16 @@ public class MenuTragos extends javax.swing.JPanel {
 
     private void T12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T12MousePressed
        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 145;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P14.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 145;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P14.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
@@ -733,10 +918,16 @@ public class MenuTragos extends javax.swing.JPanel {
 
     private void T15MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T15MousePressed
         if ((evt.getModifiers() & 4) !=0){
+            id_producto = 148;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P15.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
           }else{
+            id_producto = 148;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
             P15.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
