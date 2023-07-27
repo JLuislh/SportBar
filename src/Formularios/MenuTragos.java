@@ -100,7 +100,7 @@ public class MenuTragos extends javax.swing.JPanel {
                 BDConexion conecta = new BDConexion();
                 Connection cn = conecta.getConexion();
                 java.sql.Statement stmt = cn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT cantidad as EXISTE FROM sporbar.ventas  WHERE NOORDEN =  "+id_pedido+" AND CODIGO ="+id_producto );
+                ResultSet rs = stmt.executeQuery("SELECT cantidad as EXISTE FROM ventas  WHERE NOORDEN =  "+id_pedido+" AND CODIGO ="+id_producto );
                 while (rs.next()) {
                     existe = rs.getInt(1);
                 }

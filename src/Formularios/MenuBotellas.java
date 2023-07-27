@@ -95,10 +95,10 @@ public class MenuBotellas extends javax.swing.JPanel {
      
      public  void BuscarExistencia() {
             try {
-                BDConexion conecta = new BDConexion();
+                BDConexionSP conecta = new BDConexionSP();
                 Connection cn = conecta.getConexion();
                 java.sql.Statement stmt = cn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT cantidad as EXISTE FROM sporbar.ventas  WHERE NOORDEN =  "+id_pedido+" AND CODIGO ="+id_producto );
+                ResultSet rs = stmt.executeQuery("SELECT cantidad as EXISTE FROM ventas  WHERE NOORDEN =  "+id_pedido+" AND CODIGO ="+id_producto );
                 while (rs.next()) {
                     existe = rs.getInt(1);
                 }
@@ -608,6 +608,8 @@ public class MenuBotellas extends javax.swing.JPanel {
         
         if ((evt.getModifiers() & 4) !=0){
             id_producto = 102;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P2.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
@@ -624,6 +626,8 @@ public class MenuBotellas extends javax.swing.JPanel {
        
         if ((evt.getModifiers() & 4) !=0){
             id_producto = 101;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P3.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
@@ -641,6 +645,8 @@ public class MenuBotellas extends javax.swing.JPanel {
       
         if ((evt.getModifiers() & 4) !=0){
           id_producto = 103;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P4.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
@@ -658,6 +664,8 @@ public class MenuBotellas extends javax.swing.JPanel {
        
         if ((evt.getModifiers() & 4) !=0){
            id_producto = 105;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P5.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
@@ -676,6 +684,8 @@ public class MenuBotellas extends javax.swing.JPanel {
 
         if ((evt.getModifiers() & 4) !=0){
             id_producto = 104;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P6.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
@@ -694,6 +704,8 @@ public class MenuBotellas extends javax.swing.JPanel {
 
         if ((evt.getModifiers() & 4) !=0){  //XL
             id_producto = 106;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P7.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
@@ -712,6 +724,8 @@ public class MenuBotellas extends javax.swing.JPanel {
 
         if ((evt.getModifiers() & 4) !=0){ //gran malo
             id_producto = 107;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P8.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
@@ -729,6 +743,8 @@ public class MenuBotellas extends javax.swing.JPanel {
             
         if ((evt.getModifiers() & 4) !=0){ //zacapa
             id_producto = 108;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P9.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
@@ -746,6 +762,8 @@ public class MenuBotellas extends javax.swing.JPanel {
             
         if ((evt.getModifiers() & 4) !=0){ // jose Cuervo
            id_producto = 109;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
             P10.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
@@ -763,6 +781,8 @@ public class MenuBotellas extends javax.swing.JPanel {
               
         if ((evt.getModifiers() & 4) !=0){ // Vodka Smir
            id_producto = 110; 
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
            P11.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
@@ -781,7 +801,7 @@ public class MenuBotellas extends javax.swing.JPanel {
         if ((evt.getModifiers() & 4) !=0){   // ron añejo
            id_producto = 111;
            BuscarExistencia();
-           if(existe > 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
            P12.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();

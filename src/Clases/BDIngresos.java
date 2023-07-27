@@ -45,7 +45,7 @@ public class BDIngresos {
     
     
   public static ArrayList<InsertarProducto> ListarProductosPedidos (int a ) {
-        return SQL3(" SELECT cantidad,DESCRIPCION,precio,precio*CANTIDAD as total FROM sporbar.ventas v inner join sporbar.productos p on v.CODIGO = p.CODIGO where NOORDEN = "+a+";");    
+        return SQL3(" SELECT cantidad,DESCRIPCION,precio,precio*CANTIDAD as total FROM ventas v inner join productos p on v.CODIGO = p.CODIGO where NOORDEN = "+a+";");    
  }  
 
 private static ArrayList<InsertarProducto> SQL3(String sql){

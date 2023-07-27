@@ -4,18 +4,31 @@
  */
 package Formularios;
 
+import Clases.BDConexionSP;
 import Clases.BDIngresos;
 import Clases.InsertarProducto;
-import static INICIO.Principal.id_pedido;
 import clas.TextAreaRenderer;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.table.TableColumn;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperPrintManager;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+
 
 /**
  *
@@ -23,6 +36,7 @@ import javax.swing.table.TableColumn;
  */
 public class INICIO extends javax.swing.JFrame {
     public static int id_pedido;
+     DecimalFormat df = new DecimalFormat("#.00");
 
     /**
      * Creates new form INICIO
@@ -39,6 +53,8 @@ public class INICIO extends javax.swing.JFrame {
         String texto1 = "<html><center><body>TRAGOS<br>PREPARADOS</body></center></html>";
         T1.setText(texto1);
         NoOrden.setText(String.valueOf(id_pedido));
+       
+        //this.setExtendedState(MAXIMIZED_BOTH); 
         
         //this.setExtendedState(MAXIMIZED_BOTH);
         
@@ -52,6 +68,39 @@ public class INICIO extends javax.swing.JFrame {
          P4.setBorder(BorderFactory.createEmptyBorder());
          P5.setBorder(BorderFactory.createEmptyBorder());
          P6.setBorder(BorderFactory.createEmptyBorder());
+    }
+    
+     public static void sumaTotal() {
+        DecimalFormat df = new DecimalFormat("#.00");
+            try {
+                 BDConexionSP conecta = new BDConexionSP();
+                Connection cn = conecta.getConexion();
+                java.sql.Statement stmt = cn.createStatement();
+                ResultSet rs = stmt.executeQuery("select truncate(sum(total),2) as Total from ventas where noorden =" + id_pedido);
+                while (rs.next()) {
+                     String TOTAL = df.format(rs.getInt(1));
+                    Total.setText(String.valueOf(TOTAL));
+                }
+                rs.close();
+                stmt.close();
+                cn.close();
+            } catch (Exception error) {
+                System.out.print(error);
+            }
+        }
+     
+     private void imprimir2(){
+      BDConexionSP con= new BDConexionSP();
+         Connection conexion= con.getConexion();
+        try {
+            JasperReport jasperReport=(JasperReport)JRLoader.loadObjectFromFile("C:\\Reportes\\TiketSB.jasper");
+            Map parametros= new HashMap();
+            parametros.put("id_pedido_1", id_pedido);
+            JasperPrint print = JasperFillManager.fillReport(jasperReport,parametros, conexion);
+            JasperPrintManager.printReport(print, true);
+        } catch (Exception e) {System.out.println("F"+e);
+           JOptionPane.showMessageDialog(null, "ERROR EJECUTAR REPORTES =  "+e);
+        }
     }
     
     
@@ -91,15 +140,15 @@ public class INICIO extends javax.swing.JFrame {
         Pago = new javax.swing.JTextField();
         Cambio = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        NoOrden = new javax.swing.JTextField();
-        jPanel5 = new javax.swing.JPanel();
+        Total = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        jPanel5 = new javax.swing.JPanel();
         panelRound4 = new Clases.PanelRound();
         jLabel12 = new javax.swing.JLabel();
         panelRound5 = new Clases.PanelRound();
         jLabel11 = new javax.swing.JLabel();
+        NoOrden = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout panelRound8Layout = new javax.swing.GroupLayout(panelRound8);
         panelRound8.setLayout(panelRound8Layout);
@@ -335,6 +384,11 @@ public class INICIO extends javax.swing.JFrame {
         jLabel4.setText("Pago");
 
         Pago.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        Pago.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PagoActionPerformed(evt);
+            }
+        });
 
         Cambio.setEditable(false);
         Cambio.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -342,11 +396,13 @@ public class INICIO extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
         jLabel5.setText("Cambio");
 
-        jLabel6.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel6.setText("No Orden");
+        Total.setEditable(false);
+        Total.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
+        Total.setForeground(new java.awt.Color(255, 51, 51));
 
-        NoOrden.setEditable(false);
-        NoOrden.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Total");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -355,24 +411,24 @@ public class INICIO extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(NoOrden)
                     .addComponent(Pago)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel6)
                             .addComponent(jLabel4)
                             .addComponent(jLabel5))
-                        .addGap(0, 136, Short.MAX_VALUE))
-                    .addComponent(Cambio))
+                        .addGap(0, 150, Short.MAX_VALUE))
+                    .addComponent(Cambio)
+                    .addComponent(Total))
                 .addContainerGap())
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(11, 11, 11)
-                .addComponent(jLabel6)
+                .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NoOrden, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Total, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -381,16 +437,8 @@ public class INICIO extends javax.swing.JFrame {
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Cambio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(16, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        jLabel3.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Total");
-
-        jTextField1.setEditable(false);
-        jTextField1.setFont(new java.awt.Font("Arial", 1, 24)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 51, 51));
 
         panelRound4.setBackground(new java.awt.Color(153, 255, 153));
         panelRound4.setPreferredSize(new java.awt.Dimension(173, 50));
@@ -402,6 +450,11 @@ public class INICIO extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel12.setText("PAGAR ORDEN");
+        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel12MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelRound4Layout = new javax.swing.GroupLayout(panelRound4);
         panelRound4.setLayout(panelRound4Layout);
@@ -436,6 +489,13 @@ public class INICIO extends javax.swing.JFrame {
             .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
         );
 
+        NoOrden.setEditable(false);
+        NoOrden.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
+
+        jLabel6.setFont(new java.awt.Font("Arial Black", 1, 14)); // NOI18N
+        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel6.setText("No Orden");
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -448,23 +508,22 @@ public class INICIO extends javax.swing.JFrame {
                 .addGap(21, 21, 21))
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextField1)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(NoOrden)
                 .addContainerGap())
+            .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(12, 12, 12)
+                .addContainerGap()
+                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+                .addComponent(NoOrden, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelRound4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(panelRound5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -487,10 +546,10 @@ public class INICIO extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 14, Short.MAX_VALUE)))
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
@@ -521,7 +580,7 @@ public class INICIO extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 681, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -601,6 +660,31 @@ public class INICIO extends javax.swing.JFrame {
     P6.setBorder(BorderFactory.createMatteBorder(0, 0, 10, 0, Color.red));
     }//GEN-LAST:event_jLabel10MouseClicked
 
+    private void PagoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PagoActionPerformed
+      Double a = Double.valueOf(Total.getText());
+        Double b = Double.valueOf(Pago.getText());
+        Double cambio = b-a;
+        Cambio.setText(String.valueOf(df.format(cambio)));
+    }//GEN-LAST:event_PagoActionPerformed
+
+    private void jLabel12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MousePressed
+        
+        
+        if(Double.parseDouble(Total.getText())!= 0.00){
+        finalizar();
+         imprimir2();
+         NuevaORDEN F = new NuevaORDEN();
+         F.setVisible(true);         
+         this.dispose();
+        }else{
+         
+            JOptionPane.showMessageDialog(null, "AGREGUE UN PRODUCTO PARA COBRAR...");
+        
+        }           
+        
+        
+    }//GEN-LAST:event_jLabel12MousePressed
+
     
     public static void ListarProductosPedidos(){
      
@@ -640,7 +724,28 @@ public class INICIO extends javax.swing.JFrame {
              columna3.setPreferredWidth(35);
              TableColumn columna4 = Pedidos.getColumn("TOTAL");
              columna4.setPreferredWidth(55);
+             sumaTotal();
+             Pago.requestFocus();
      }
+     
+     
+      private void finalizar(){
+   
+        try {
+                 BDConexionSP conecta = new BDConexionSP();
+                 Connection con = conecta.getConexion();
+                 PreparedStatement smtp = null;
+                 smtp = con.prepareStatement("update ORDENES SET TOTAL = "+Total.getText()+" WHERE NOORDEN ="+NoOrden.getText());
+                 smtp.executeUpdate();
+                con.close();
+                smtp.close();
+            } catch (SQLException ex) {
+                JOptionPane.showConfirmDialog(null, ex);
+            }
+ 
+ }
+      
+      
    
     
     
@@ -686,10 +791,11 @@ public class INICIO extends javax.swing.JFrame {
     private Clases.PanelRound P4;
     private Clases.PanelRound P5;
     private Clases.PanelRound P6;
-    private javax.swing.JTextField Pago;
+    public static javax.swing.JTextField Pago;
     private javax.swing.JPanel PaneldeInicio;
     public static javax.swing.JTable Pedidos;
     private javax.swing.JLabel T1;
+    public static javax.swing.JTextField Total;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -707,7 +813,6 @@ public class INICIO extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private Clases.PanelRound panelRound4;
     private Clases.PanelRound panelRound5;
     private Clases.PanelRound panelRound8;

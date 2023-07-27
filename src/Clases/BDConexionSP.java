@@ -17,9 +17,9 @@ import javax.swing.JOptionPane;
 public class BDConexionSP {
     
   
-     public static final String URL = "jdbc:mysql://localhost:3306/sporbar?useTimezone=true&serverTimezone=UTC";
-    public static final String USER = "elrey";
-    public static final String CLAVE = "campana";
+     public static final String URL = "jdbc:mysql://localhost:3306/sportbar?useTimezone=true&serverTimezone=UTC";
+    public static final String USER = "amapola";
+    public static final String CLAVE = "sportbar";
      
     public Connection getConexion(){
         Connection con = null;
