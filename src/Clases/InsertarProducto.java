@@ -24,6 +24,35 @@ public class InsertarProducto {
     private String sin;
     private double precio;
     private double Total;
+    private int Codigo;
+    private int NoOrden;
+    private int Status;
+
+    public int getStatus() {
+        return Status;
+    }
+
+    public void setStatus(int Status) {
+        this.Status = Status;
+    }
+     
+    
+    public int getNoOrden() {
+        return NoOrden;
+    }
+
+    public void setNoOrden(int NoOrden) {
+        this.NoOrden = NoOrden;
+    }
+
+    public int getCodigo() {
+        return Codigo;
+    }
+
+    public void setCodigo(int Codigo) {
+        this.Codigo = Codigo;
+    }
+    
 
     public double getTotal() {
         return Total;

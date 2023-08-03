@@ -4,14 +4,18 @@
  */
 package Formularios;
 
+import Clases.BDConexionSP;
 import Clases.BDProductos;
 import Clases.InsertarProducto;
-import java.awt.Color;
-import javax.swing.BorderFactory;
+import java.sql.Connection;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.Border;
 
 /**
  *
@@ -19,6 +23,7 @@ import javax.swing.border.Border;
  */
 public class NuevaORDEN extends javax.swing.JFrame {
      int id_pedido;
+     String fecha;
     /**
      * Creates new form NuevaORDEN
      */
@@ -28,14 +33,20 @@ public class NuevaORDEN extends javax.swing.JFrame {
 
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
         }
-        
         initComponents();
         String texto1 = "<html><center><body>NUEVA<br>ORDEN</body></center></html>";
         T1.setText(texto1);
-    String texto2 = "<html><center><body>CORTE DE<br>CAJA</body></center></html>";
-        T2.setText(texto2);
+        String texto3 = "<html><center><body>ADMINISTRADOR</body></center></html>";
+        T3.setText(texto3);
         setLocationRelativeTo(null);
-    }
+        this.setExtendedState(MAXIMIZED_BOTH); 
+        }
+    
+     public void Cfecha() {                                      
+         DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
+         Calendar cal = Calendar.getInstance();
+         fecha=(dateFormat.format(cal.getTime()));
+        }  
     
     
     public void crear(){
@@ -69,8 +80,8 @@ public class NuevaORDEN extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         P1 = new Clases.PanelRound();
         T1 = new javax.swing.JLabel();
-        P2 = new Clases.PanelRound();
-        T2 = new javax.swing.JLabel();
+        P3 = new Clases.PanelRound();
+        T3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,52 +114,54 @@ public class NuevaORDEN extends javax.swing.JFrame {
             .addComponent(T1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
         );
 
-        P2.setBackground(new java.awt.Color(102, 204, 255));
-        P2.setPreferredSize(new java.awt.Dimension(150, 60));
-        P2.setRoundBottomLeft(20);
-        P2.setRoundBottomRight(20);
-        P2.setRoundTopLeft(20);
-        P2.setRoundTopRight(20);
+        P3.setBackground(new java.awt.Color(102, 204, 255));
+        P3.setPreferredSize(new java.awt.Dimension(150, 60));
+        P3.setRoundBottomLeft(20);
+        P3.setRoundBottomRight(20);
+        P3.setRoundTopLeft(20);
+        P3.setRoundTopRight(20);
 
-        T2.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        T2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T2.setText("jLabel1");
-        T2.addMouseListener(new java.awt.event.MouseAdapter() {
+        T3.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        T3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        T3.setText("jLabel1");
+        T3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                T2MousePressed(evt);
+                T3MousePressed(evt);
             }
         });
 
-        javax.swing.GroupLayout P2Layout = new javax.swing.GroupLayout(P2);
-        P2.setLayout(P2Layout);
-        P2Layout.setHorizontalGroup(
-            P2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(T2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+        javax.swing.GroupLayout P3Layout = new javax.swing.GroupLayout(P3);
+        P3.setLayout(P3Layout);
+        P3Layout.setHorizontalGroup(
+            P3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(T3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
         );
-        P2Layout.setVerticalGroup(
-            P2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(T2, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
+        P3Layout.setVerticalGroup(
+            P3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(T3, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(P3, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(P1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(P2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(854, Short.MAX_VALUE))
+                .addGap(36, 36, 36)
+                .addComponent(P1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(844, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addContainerGap(247, Short.MAX_VALUE)
                 .addComponent(P1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(64, 64, 64)
-                .addComponent(P2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(365, Short.MAX_VALUE))
+                .addGap(232, 232, 232)
+                .addComponent(P3, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -169,9 +182,14 @@ public class NuevaORDEN extends javax.swing.JFrame {
         crear();
     }//GEN-LAST:event_T1MousePressed
 
-    private void T2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T2MousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_T2MousePressed
+    private void T3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T3MousePressed
+        
+                  Contraseña F = new Contraseña();
+                  F.setVisible(true);
+                  this.dispose();
+           
+        
+    }//GEN-LAST:event_T3MousePressed
 
     /**
      * @param args the command line arguments
@@ -210,9 +228,9 @@ public class NuevaORDEN extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Clases.PanelRound P1;
-    private Clases.PanelRound P2;
+    private Clases.PanelRound P3;
     private javax.swing.JLabel T1;
-    private javax.swing.JLabel T2;
+    private javax.swing.JLabel T3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

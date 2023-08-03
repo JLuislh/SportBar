@@ -28,6 +28,7 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperPrintManager;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 
 /**
@@ -50,16 +51,31 @@ public class INICIO extends javax.swing.JFrame {
         initComponents();
         this.id_pedido = i;
         setLocationRelativeTo(null);
-        String texto1 = "<html><center><body>TRAGOS<br>PREPARADOS</body></center></html>";
+        String texto1 = "<html><center><body>TRAGOS<br>PREPARADOS<br>GASEOSAS/SODAS</body></center></html>";
         T1.setText(texto1);
         NoOrden.setText(String.valueOf(id_pedido));
        
-        //this.setExtendedState(MAXIMIZED_BOTH); 
+        this.setExtendedState(MAXIMIZED_BOTH); 
         
         //this.setExtendedState(MAXIMIZED_BOTH);
         
        // PaneldeInicio.setSize(1025, 400);
     }
+    
+    private void eliminarOrden(){
+        try {
+            BDConexionSP conecta = new BDConexionSP();
+            Connection con = conecta.getConexion();
+            PreparedStatement ps = null;
+            ps= con.prepareStatement("delete from Ordenes where noorden="+id_pedido);
+            ps.executeUpdate();
+            con.close();
+            ps.close();
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null,"ERROr = "+ex);
+        }
+ }
+  
    
     private void CambiarBodes(){
          P1.setBorder(BorderFactory.createEmptyBorder());
@@ -95,16 +111,14 @@ public class INICIO extends javax.swing.JFrame {
         try {
             JasperReport jasperReport=(JasperReport)JRLoader.loadObjectFromFile("C:\\Reportes\\TiketSB.jasper");
             Map parametros= new HashMap();
-            parametros.put("id_pedido_1", id_pedido);
+            parametros.put("ID_ORDEN", id_pedido);
             JasperPrint print = JasperFillManager.fillReport(jasperReport,parametros, conexion);
             JasperPrintManager.printReport(print, true);
         } catch (Exception e) {System.out.println("F"+e);
            JOptionPane.showMessageDialog(null, "ERROR EJECUTAR REPORTES =  "+e);
         }
     }
-    
-    
-	 
+   
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -173,8 +187,9 @@ public class INICIO extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("SPORTBAR");
+        setTitle("SPORTBAR AMAPOLA");
         setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setUndecorated(true);
         setPreferredSize(new java.awt.Dimension(1025, 700));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -234,7 +249,7 @@ public class INICIO extends javax.swing.JFrame {
         P3.setRoundTopLeft(20);
         P3.setRoundTopRight(20);
 
-        T1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        T1.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         T1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         T1.setText("TRAGOS PREPA");
         T1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -477,6 +492,11 @@ public class INICIO extends javax.swing.JFrame {
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel11.setText("CANCELAR");
+        jLabel11.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel11MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelRound5Layout = new javax.swing.GroupLayout(panelRound5);
         panelRound5.setLayout(panelRound5Layout);
@@ -649,7 +669,7 @@ public class INICIO extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel9MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-    MenuPromociones op6 = new MenuPromociones();
+    MenuPromociones op6 = new MenuPromociones(id_pedido);
     op6.setSize(1025, 380);
     op6.setLocation(0, 0);
     PaneldeInicio.removeAll();
@@ -671,7 +691,8 @@ public class INICIO extends javax.swing.JFrame {
         
         
         if(Double.parseDouble(Total.getText())!= 0.00){
-        finalizar();
+         finalizar();
+         imprimir2();
          imprimir2();
          NuevaORDEN F = new NuevaORDEN();
          F.setVisible(true);         
@@ -684,6 +705,16 @@ public class INICIO extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jLabel12MousePressed
+
+    private void jLabel11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel11MousePressed
+        int resp=JOptionPane.showConfirmDialog(null,"DESEA CANCELAR LA ORDEN");
+          if (JOptionPane.OK_OPTION == resp){
+           eliminarOrden();
+           NuevaORDEN F = new NuevaORDEN();
+           F.setVisible(true);
+           this.dispose();
+          }
+    }//GEN-LAST:event_jLabel11MousePressed
 
     
     public static void ListarProductosPedidos(){
