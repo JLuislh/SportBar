@@ -28,7 +28,6 @@ public class BDIngresos {
          smtp.executeUpdate();
      } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "QUE MIERDA PASA ADENTRO =  "+e);}
-        
         ResultSet rs = smtp.getGeneratedKeys();
         if(rs.next()){int id1 = rs.getInt(1);
           t.setIdregreso(id1);
@@ -36,6 +35,85 @@ public class BDIngresos {
         
        con.close();
        smtp.close(); 
+        return t;
+       
+    }
+    
+    public static InsertarProducto InsertarProducto_PedidoCervezaCubetazo(InsertarProducto t) throws SQLException{
+        BDConexionSP conecta = new BDConexionSP();
+        Connection con = conecta.getConexion();
+        PreparedStatement smtp = null;
+        PreparedStatement sm = null;
+        smtp =con.prepareStatement("insert into ventas (noorden,codigo,cantidad,total,estado) values(?,?,1,(select precio from productos where codigo =  "+t.getId_producto()+" ),1) ",Statement.RETURN_GENERATED_KEYS);
+        sm = con.prepareStatement("{call DescargaPorCubetazo("+t.getId_producto()+",1)}");
+        try {
+         smtp.setInt(1,t.getId_pedido());
+         smtp.setInt(2,t.getId_producto());
+         smtp.executeUpdate();
+         sm.executeUpdate();
+     } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "QUE MIERDA PASA ADENTRO =  "+e);}
+        ResultSet rs = smtp.getGeneratedKeys();
+        if(rs.next()){int id1 = rs.getInt(1);
+          t.setIdregreso(id1);
+        }
+        
+       con.close();
+       smtp.close();
+       sm.close(); 
+        return t;
+       
+    }
+    
+    public static InsertarProducto InsertarProducto_PedidoCervezaUnidad(InsertarProducto t) throws SQLException{
+        BDConexionSP conecta = new BDConexionSP();
+        Connection con = conecta.getConexion();
+        PreparedStatement smtp = null;
+        PreparedStatement sm = null;
+        smtp =con.prepareStatement("insert into ventas (noorden,codigo,cantidad,total,estado) values(?,?,1,(select precio from productos where codigo =  "+t.getId_producto()+" ),1) ",Statement.RETURN_GENERATED_KEYS);
+        sm = con.prepareStatement("{call DescargaPorUnidad("+t.getId_producto()+",1)}");
+        try {
+         smtp.setInt(1,t.getId_pedido());
+         smtp.setInt(2,t.getId_producto());
+         smtp.executeUpdate();
+         sm.executeUpdate();
+     } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "QUE MIERDA PASA ADENTRO =  "+e);}
+        ResultSet rs = smtp.getGeneratedKeys();
+        if(rs.next()){int id1 = rs.getInt(1);
+          t.setIdregreso(id1);
+        }
+        
+       con.close();
+       smtp.close();
+       sm.close(); 
+        return t;
+       
+    }
+    
+    
+     public static InsertarProducto InsertarProducto_PedidoBotellas(InsertarProducto t) throws SQLException{
+        BDConexionSP conecta = new BDConexionSP();
+        Connection con = conecta.getConexion();
+        PreparedStatement smtp = null;
+        PreparedStatement sm = null;
+        smtp =con.prepareStatement("insert into ventas (noorden,codigo,cantidad,total,estado) values(?,?,1,(select precio from productos where codigo =  "+t.getId_producto()+" ),1) ",Statement.RETURN_GENERATED_KEYS);
+        sm = con.prepareStatement("{call DescargaPorUnidad("+t.getId_producto()+",1)}");
+        try {
+         smtp.setInt(1,t.getId_pedido());
+         smtp.setInt(2,t.getId_producto());
+         smtp.executeUpdate();
+         sm.executeUpdate();
+     } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "QUE MIERDA PASA ADENTRO =  "+e);}
+        ResultSet rs = smtp.getGeneratedKeys();
+        if(rs.next()){int id1 = rs.getInt(1);
+          t.setIdregreso(id1);
+        }
+        
+       con.close();
+       smtp.close(); 
+       sm.close(); 
         return t;
        
     }
@@ -264,8 +342,8 @@ public static InsertarProducto BuscarProductoPromo(int a) throws SQLException{
                  list.add(t);
                             }
             cn.close();
-        } catch (Exception e) {
-            System.out.println("error consulta DE LA ATABLA "+e);
+        } catch (SQLException e) {
+            System.out.println("error consulta DE LA A TABLA "+e);
             return null;
         } 
         return list;
@@ -288,9 +366,7 @@ public static InsertarProducto BuscarProductoPromo(int a) throws SQLException{
             if (rs.next())
             {
                if (c==null)
-               {c = new InsertarProducto(){
-               };
-               }
+               {c = new InsertarProducto(){};}
                c.setNoOrden(rs.getInt("ORDENES"));
                c.setTotal(rs.getDouble("TOTAL"));
                
