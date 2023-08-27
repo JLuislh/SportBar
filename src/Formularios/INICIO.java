@@ -51,8 +51,10 @@ public class INICIO extends javax.swing.JFrame {
         initComponents();
         this.id_pedido = i;
         setLocationRelativeTo(null);
-        String texto1 = "<html><center><body>TRAGOS<br>PREPARADOS<br>GASEOSAS/SODAS</body></center></html>";
+        String texto1 = "<html><center><body>TRAGOS<br>PREPARADOS</body></center></html>";
         T1.setText(texto1);
+         String texto2 = "<html><center><body>BEBIDAS<br>SIN LICOR</body></center></html>";
+        T3.setText(texto2);
         NoOrden.setText(String.valueOf(id_pedido));
        
         this.setExtendedState(MAXIMIZED_BOTH); 
@@ -81,6 +83,8 @@ public class INICIO extends javax.swing.JFrame {
          P1.setBorder(BorderFactory.createEmptyBorder());
          P2.setBorder(BorderFactory.createEmptyBorder());
          P3.setBorder(BorderFactory.createEmptyBorder());
+         P4.setBorder(BorderFactory.createEmptyBorder());
+         P5.setBorder(BorderFactory.createEmptyBorder());
          P6.setBorder(BorderFactory.createEmptyBorder());
          P7.setBorder(BorderFactory.createEmptyBorder());
          P8.setBorder(BorderFactory.createEmptyBorder());
@@ -357,7 +361,7 @@ public class INICIO extends javax.swing.JFrame {
 
         T2.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         T2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T2.setText("shot botellas");
+        T2.setText("SHOTS LICORES");
         T2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 T2MouseClicked(evt);
@@ -382,7 +386,7 @@ public class INICIO extends javax.swing.JFrame {
 
         T3.setFont(new java.awt.Font("Arial", 1, 13)); // NOI18N
         T3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T3.setText("sin licor");
+        T3.setText("BEBIDAS SIN LICOR");
         T3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 T3MouseClicked(evt);
@@ -393,7 +397,7 @@ public class INICIO extends javax.swing.JFrame {
         P5.setLayout(P5Layout);
         P5Layout.setHorizontalGroup(
             P5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(T3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+            .addComponent(T3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         P5Layout.setVerticalGroup(
             P5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -790,7 +794,7 @@ public class INICIO extends javax.swing.JFrame {
     P9.revalidate();
     P9.repaint();
     CambiarBodes();
-    P3.setBorder(BorderFactory.createMatteBorder(0, 0, 10, 0, Color.red));
+    P4.setBorder(BorderFactory.createMatteBorder(0, 0, 10, 0, Color.red));
     }//GEN-LAST:event_T2MouseClicked
 
     private void T3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T3MouseClicked
@@ -803,7 +807,7 @@ public class INICIO extends javax.swing.JFrame {
     P9.revalidate();
     P9.repaint();
     CambiarBodes();
-    P3.setBorder(BorderFactory.createMatteBorder(0, 0, 10, 0, Color.red));
+    P5.setBorder(BorderFactory.createMatteBorder(0, 0, 10, 0, Color.red));
 
     }//GEN-LAST:event_T3MouseClicked
 

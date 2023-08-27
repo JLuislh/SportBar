@@ -414,7 +414,7 @@
                       <Font name="Arial" size="13" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="shot botellas"/>
+                    <Property name="text" type="java.lang.String" value="SHOTS LICORES"/>
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="T2MouseClicked"/>
@@ -437,7 +437,7 @@
               <Layout>
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="T3" alignment="1" pref="120" max="32767" attributes="0"/>
+                      <Component id="T3" alignment="1" max="32767" attributes="0"/>
                   </Group>
                 </DimensionLayout>
                 <DimensionLayout dim="1">
@@ -453,7 +453,7 @@
                       <Font name="Arial" size="13" style="1"/>
                     </Property>
                     <Property name="horizontalAlignment" type="int" value="0"/>
-                    <Property name="text" type="java.lang.String" value="sin licor"/>
+                    <Property name="text" type="java.lang.String" value="BEBIDAS SIN LICOR"/>
                   </Properties>
                   <Events>
                     <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="T3MouseClicked"/>
