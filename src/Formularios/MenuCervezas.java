@@ -63,6 +63,11 @@ public class MenuCervezas extends javax.swing.JPanel {
        P20.setBackground(Original);
        P21.setBackground(Original);
        P22.setBackground(Original);
+       P23.setBackground(Original);
+       P24.setBackground(Original);
+       P25.setBackground(Original);
+       P26.setBackground(Original);
+       P27.setBackground(Original);
      }
     });
      
@@ -178,8 +183,10 @@ public class MenuCervezas extends javax.swing.JPanel {
         T6 = new javax.swing.JLabel();
         P7 = new Clases.PanelRound();
         T7 = new javax.swing.JLabel();
-        panelRound1 = new Clases.PanelRound();
-        panelRound2 = new Clases.PanelRound();
+        P24 = new Clases.PanelRound();
+        T24 = new javax.swing.JLabel();
+        P23 = new Clases.PanelRound();
+        T23 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         P9 = new Clases.PanelRound();
         T9 = new javax.swing.JLabel();
@@ -195,8 +202,12 @@ public class MenuCervezas extends javax.swing.JPanel {
         T13 = new javax.swing.JLabel();
         P14 = new Clases.PanelRound();
         T14 = new javax.swing.JLabel();
-        panelRound3 = new Clases.PanelRound();
-        panelRound4 = new Clases.PanelRound();
+        P26 = new Clases.PanelRound();
+        T26 = new javax.swing.JLabel();
+        P25 = new Clases.PanelRound();
+        T25 = new javax.swing.JLabel();
+        P27 = new Clases.PanelRound();
+        T27 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         P17 = new Clases.PanelRound();
         T15 = new javax.swing.JLabel();
@@ -412,40 +423,58 @@ public class MenuCervezas extends javax.swing.JPanel {
             .addComponent(T7, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        panelRound1.setBackground(new java.awt.Color(204, 255, 204));
-        panelRound1.setPreferredSize(new java.awt.Dimension(147, 60));
-        panelRound1.setRoundBottomLeft(20);
-        panelRound1.setRoundBottomRight(20);
-        panelRound1.setRoundTopLeft(20);
-        panelRound1.setRoundTopRight(20);
+        P24.setBackground(new java.awt.Color(204, 255, 204));
+        P24.setPreferredSize(new java.awt.Dimension(147, 60));
+        P24.setRoundBottomLeft(20);
+        P24.setRoundBottomRight(20);
+        P24.setRoundTopLeft(20);
+        P24.setRoundTopRight(20);
 
-        javax.swing.GroupLayout panelRound1Layout = new javax.swing.GroupLayout(panelRound1);
-        panelRound1.setLayout(panelRound1Layout);
-        panelRound1Layout.setHorizontalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 147, Short.MAX_VALUE)
+        T24.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        T24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        T24.setText("michelob");
+        T24.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                T24MousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout P24Layout = new javax.swing.GroupLayout(P24);
+        P24.setLayout(P24Layout);
+        P24Layout.setHorizontalGroup(
+            P24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(T24, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
         );
-        panelRound1Layout.setVerticalGroup(
-            panelRound1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+        P24Layout.setVerticalGroup(
+            P24Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(T24, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        panelRound2.setBackground(new java.awt.Color(204, 255, 204));
-        panelRound2.setPreferredSize(new java.awt.Dimension(147, 60));
-        panelRound2.setRoundBottomLeft(20);
-        panelRound2.setRoundBottomRight(20);
-        panelRound2.setRoundTopLeft(20);
-        panelRound2.setRoundTopRight(20);
+        P23.setBackground(new java.awt.Color(204, 255, 204));
+        P23.setPreferredSize(new java.awt.Dimension(147, 60));
+        P23.setRoundBottomLeft(20);
+        P23.setRoundBottomRight(20);
+        P23.setRoundTopLeft(20);
+        P23.setRoundTopRight(20);
 
-        javax.swing.GroupLayout panelRound2Layout = new javax.swing.GroupLayout(panelRound2);
-        panelRound2.setLayout(panelRound2Layout);
-        panelRound2Layout.setHorizontalGroup(
-            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 147, Short.MAX_VALUE)
+        T23.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        T23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        T23.setText("dorada draf");
+        T23.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                T23MousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout P23Layout = new javax.swing.GroupLayout(P23);
+        P23.setLayout(P23Layout);
+        P23Layout.setHorizontalGroup(
+            P23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(T23, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
         );
-        panelRound2Layout.setVerticalGroup(
-            panelRound2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 60, Short.MAX_VALUE)
+        P23Layout.setVerticalGroup(
+            P23Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(T23, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -470,8 +499,8 @@ public class MenuCervezas extends javax.swing.JPanel {
                             .addComponent(P4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(6, 6, 6)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(P23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(P24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(16, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -488,11 +517,11 @@ public class MenuCervezas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(P3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelRound2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(P23, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(P4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelRound1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(P24, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(P5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(12, Short.MAX_VALUE))
@@ -692,40 +721,85 @@ public class MenuCervezas extends javax.swing.JPanel {
             .addComponent(T14, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
-        panelRound3.setBackground(new java.awt.Color(204, 255, 204));
-        panelRound3.setPreferredSize(new java.awt.Dimension(147, 60));
-        panelRound3.setRoundBottomLeft(20);
-        panelRound3.setRoundBottomRight(20);
-        panelRound3.setRoundTopLeft(20);
-        panelRound3.setRoundTopRight(20);
+        P26.setBackground(new java.awt.Color(204, 255, 204));
+        P26.setPreferredSize(new java.awt.Dimension(147, 60));
+        P26.setRoundBottomLeft(20);
+        P26.setRoundBottomRight(20);
+        P26.setRoundTopLeft(20);
+        P26.setRoundTopRight(20);
 
-        javax.swing.GroupLayout panelRound3Layout = new javax.swing.GroupLayout(panelRound3);
-        panelRound3.setLayout(panelRound3Layout);
-        panelRound3Layout.setHorizontalGroup(
-            panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 147, Short.MAX_VALUE)
+        T26.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        T26.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        T26.setText("cubetazo michelob");
+        T26.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                T26MousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout P26Layout = new javax.swing.GroupLayout(P26);
+        P26.setLayout(P26Layout);
+        P26Layout.setHorizontalGroup(
+            P26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(T26, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
         );
-        panelRound3Layout.setVerticalGroup(
-            panelRound3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 56, Short.MAX_VALUE)
+        P26Layout.setVerticalGroup(
+            P26Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(T26, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
-        panelRound4.setBackground(new java.awt.Color(204, 255, 204));
-        panelRound4.setPreferredSize(new java.awt.Dimension(147, 60));
-        panelRound4.setRoundBottomLeft(20);
-        panelRound4.setRoundBottomRight(20);
-        panelRound4.setRoundTopLeft(20);
-        panelRound4.setRoundTopRight(20);
+        P25.setBackground(new java.awt.Color(204, 255, 204));
+        P25.setPreferredSize(new java.awt.Dimension(147, 60));
+        P25.setRoundBottomLeft(20);
+        P25.setRoundBottomRight(20);
+        P25.setRoundTopLeft(20);
+        P25.setRoundTopRight(20);
 
-        javax.swing.GroupLayout panelRound4Layout = new javax.swing.GroupLayout(panelRound4);
-        panelRound4.setLayout(panelRound4Layout);
-        panelRound4Layout.setHorizontalGroup(
-            panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 147, Short.MAX_VALUE)
+        T25.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        T25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        T25.setText("cubetazo dorada draf");
+        T25.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                T25MousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout P25Layout = new javax.swing.GroupLayout(P25);
+        P25.setLayout(P25Layout);
+        P25Layout.setHorizontalGroup(
+            P25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(T25, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
         );
-        panelRound4Layout.setVerticalGroup(
-            panelRound4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 56, Short.MAX_VALUE)
+        P25Layout.setVerticalGroup(
+            P25Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(T25, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
+        );
+
+        P27.setBackground(new java.awt.Color(204, 255, 204));
+        P27.setPreferredSize(new java.awt.Dimension(147, 60));
+        P27.setRoundBottomLeft(20);
+        P27.setRoundBottomRight(20);
+        P27.setRoundTopLeft(20);
+        P27.setRoundTopRight(20);
+
+        T27.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        T27.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        T27.setText("CAJA 24 UNIDADES");
+        T27.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                T27MousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout P27Layout = new javax.swing.GroupLayout(P27);
+        P27.setLayout(P27Layout);
+        P27Layout.setHorizontalGroup(
+            P27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(T27, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+        );
+        P27Layout.setVerticalGroup(
+            P27Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(T27, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -746,16 +820,19 @@ public class MenuCervezas extends javax.swing.JPanel {
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(P10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(panelRound4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(P25, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(P9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(P14, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(P12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(P12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(P27, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(P11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(P26, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -773,13 +850,15 @@ public class MenuCervezas extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(P10, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelRound4, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(P25, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(P11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(panelRound3, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(P26, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(P12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(P12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(P27, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -1068,8 +1147,8 @@ public class MenuCervezas extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -1473,6 +1552,96 @@ public class MenuCervezas extends javax.swing.JPanel {
             timer.start();
        }
     }//GEN-LAST:event_T20MousePressed
+
+    private void T23MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T23MousePressed
+       if ((evt.getModifiers() & 4) !=0){
+            id_producto = 216;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            P23.setBackground(Color.darkGray);
+            timer.setRepeats(false);
+            timer.start();
+          }else{
+            id_producto = 216;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            P23.setBackground(Color.YELLOW);
+            timer.setRepeats(false);
+            timer.start();
+       }
+    }//GEN-LAST:event_T23MousePressed
+
+    private void T24MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T24MousePressed
+        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 215;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            P24.setBackground(Color.darkGray);
+            timer.setRepeats(false);
+            timer.start();
+          }else{
+            id_producto = 215;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            P24.setBackground(Color.YELLOW);
+            timer.setRepeats(false);
+            timer.start();
+       }
+    }//GEN-LAST:event_T24MousePressed
+
+    private void T25MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T25MousePressed
+       if ((evt.getModifiers() & 4) !=0){
+            id_producto = 217;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            P25.setBackground(Color.darkGray);
+            timer.setRepeats(false);
+            timer.start();
+          }else{
+            id_producto = 217;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            P25.setBackground(Color.YELLOW);
+            timer.setRepeats(false);
+            timer.start();
+       }
+    }//GEN-LAST:event_T25MousePressed
+
+    private void T26MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T26MousePressed
+       if ((evt.getModifiers() & 4) !=0){
+            id_producto = 218;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            P26.setBackground(Color.darkGray);
+            timer.setRepeats(false);
+            timer.start();
+          }else{
+            id_producto = 218;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            P26.setBackground(Color.YELLOW);
+            timer.setRepeats(false);
+            timer.start();
+       }
+    }//GEN-LAST:event_T26MousePressed
+
+    private void T27MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T27MousePressed
+        if ((evt.getModifiers() & 4) !=0){
+            id_producto = 219;
+            BuscarExistencia();
+            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            P27.setBackground(Color.darkGray);
+            timer.setRepeats(false);
+            timer.start();
+          }else{
+            id_producto = 219;
+            BuscarExistencia();
+            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            P27.setBackground(Color.YELLOW);
+            timer.setRepeats(false);
+            timer.start();
+       }
+    }//GEN-LAST:event_T27MousePressed
    
      private void NOmbresEtiquetas(){
     
@@ -1520,6 +1689,16 @@ public class MenuCervezas extends javax.swing.JPanel {
         T21.setText(texto21);
     String texto22 = "<html><center><body>JIRAFA CERVEZA<br>CABRO EXTRA<br><font color='RED'>Q100.00</body></center></html>";
         T22.setText(texto22);    
+        String texto23 = "<html><center><body>CERVEZA<br>DORADA DRAF<br><font color='RED'>Q18.00</body></center></html>";
+        T23.setText(texto23);    
+        String texto24 = "<html><center><body>CERVEZA<br>MICHELOB<br><font color='RED'>Q20.00</body></center></html>";
+        T24.setText(texto24);    
+        String texto25 = "<html><center><body>CUBETAZO<br>DORADA DRAF<br><font color='RED'>Q100.00</body></center></html>";
+        T25.setText(texto25);    
+        String texto26 = "<html><center><body>CUBETAZO<br>MICHELOB<br><font color='RED'>Q150.00</body></center></html>";
+        T26.setText(texto26);  
+        String texto27 = "<html><center><body>CAJA DE CERVEZA<br>24 UNIDADS<br><font color='RED'>Q300.00</body></center></html>";
+        T27.setText(texto27);  
                 
     }
 
@@ -1539,6 +1718,11 @@ public class MenuCervezas extends javax.swing.JPanel {
     private Clases.PanelRound P20;
     private Clases.PanelRound P21;
     private Clases.PanelRound P22;
+    private Clases.PanelRound P23;
+    private Clases.PanelRound P24;
+    private Clases.PanelRound P25;
+    private Clases.PanelRound P26;
+    private Clases.PanelRound P27;
     private Clases.PanelRound P3;
     private Clases.PanelRound P4;
     private Clases.PanelRound P5;
@@ -1561,6 +1745,11 @@ public class MenuCervezas extends javax.swing.JPanel {
     private javax.swing.JLabel T20;
     private javax.swing.JLabel T21;
     private javax.swing.JLabel T22;
+    private javax.swing.JLabel T23;
+    private javax.swing.JLabel T24;
+    private javax.swing.JLabel T25;
+    private javax.swing.JLabel T26;
+    private javax.swing.JLabel T27;
     private javax.swing.JLabel T3;
     private javax.swing.JLabel T4;
     private javax.swing.JLabel T5;
@@ -1571,10 +1760,6 @@ public class MenuCervezas extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private Clases.PanelRound panelRound1;
-    private Clases.PanelRound panelRound2;
-    private Clases.PanelRound panelRound3;
-    private Clases.PanelRound panelRound4;
     private Clases.PanelRound panelRound5;
     private Clases.PanelRound panelRound6;
     private Clases.PanelRound panelRound7;

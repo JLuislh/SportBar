@@ -542,17 +542,17 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="P111" alignment="1" pref="150" max="32767" attributes="0"/>
+              <Component id="T10" alignment="1" pref="150" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="P111" alignment="0" pref="70" max="32767" attributes="0"/>
+              <Component id="T10" alignment="0" pref="70" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
-        <Component class="javax.swing.JLabel" name="P111">
+        <Component class="javax.swing.JLabel" name="T10">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Arial" size="12" style="1"/>
@@ -561,7 +561,7 @@
             <Property name="text" type="java.lang.String" value="jagger bom"/>
           </Properties>
           <Events>
-            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="P111MousePressed"/>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="T10MousePressed"/>
           </Events>
         </Component>
       </SubComponents>
@@ -911,7 +911,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="T19" alignment="0" pref="68" max="32767" attributes="0"/>
+              <Component id="T19" alignment="1" pref="68" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -1047,7 +1047,7 @@
         <Component class="javax.swing.JLabel" name="T22">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="10" style="1"/>
+              <Font name="Arial" size="12" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="bacardi"/>
@@ -1088,7 +1088,7 @@
         <Component class="javax.swing.JLabel" name="T23">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="10" style="1"/>
+              <Font name="Arial" size="12" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="mojito"/>
@@ -1129,7 +1129,7 @@
         <Component class="javax.swing.JLabel" name="T24">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="10" style="1"/>
+              <Font name="Arial" size="12" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="pi&#xf1;a colada"/>
@@ -1170,7 +1170,7 @@
         <Component class="javax.swing.JLabel" name="T25">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-              <Font name="Arial" size="10" style="1"/>
+              <Font name="Arial" size="12" style="1"/>
             </Property>
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="sangria"/>

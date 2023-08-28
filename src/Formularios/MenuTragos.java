@@ -23,52 +23,55 @@ import javax.swing.Timer;
  * @author jluis
  */
 public class MenuTragos extends javax.swing.JPanel {
-     
+
     int id_pedido = 0;
-     int id_producto = 0;
-     int id_producto_pedido = 0;
-     int existe = 0;
+    int id_producto = 0;
+    int id_producto_pedido = 0;
+    int existe = 0;
+
     /**
      * Creates new form MenuTragos
      */
     public MenuTragos(int a) {
         initComponents();
         TextosLabel();
-        this.id_pedido=a;
+        this.id_pedido = a;
     }
 
-    Timer timer = new Timer(300, new ActionListener()
-    {
-    public void actionPerformed(ActionEvent e)
-    {
-       Color Original = new Color(204,255,204);
-       P1.setBackground(Original);
-       P5.setBackground(Original);
-       P9.setBackground(Original);
-       P13.setBackground(Original);
-       P17.setBackground(Original);
-       P2.setBackground(Original);
-       P6.setBackground(Original);
-       P10.setBackground(Original);
-       P14.setBackground(Original);
-       P18.setBackground(Original);
-       P3.setBackground(Original);
-       P7.setBackground(Original);
-       P11.setBackground(Original);
-       P15.setBackground(Original);
-       P19.setBackground(Original);
-       P4.setBackground(Original);
-       P8.setBackground(Original);
-       P12.setBackground(Original);
-       P16.setBackground(Original);
-       P21.setBackground(Original);
-       P22.setBackground(Original);
-     }
+    Timer timer = new Timer(300, new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            Color Original = new Color(204, 255, 204);
+            P1.setBackground(Original);
+            P2.setBackground(Original);
+            P3.setBackground(Original);
+            P4.setBackground(Original);
+            P5.setBackground(Original);
+            P6.setBackground(Original);
+            P7.setBackground(Original);
+            P8.setBackground(Original);
+            P9.setBackground(Original);
+            P10.setBackground(Original);
+            P11.setBackground(Original);
+            P12.setBackground(Original);
+            P13.setBackground(Original);
+            P14.setBackground(Original);
+            P15.setBackground(Original);
+            P16.setBackground(Original);
+            P17.setBackground(Original);
+            P18.setBackground(Original);
+            P19.setBackground(Original);
+            P20.setBackground(Original);
+            P21.setBackground(Original);
+            P22.setBackground(Original);
+            P23.setBackground(Original);
+            P24.setBackground(Original);
+            P25.setBackground(Original);
+
+        }
     });
-    
-    
+
     private void InsertarProductoPedido() {
-       
+
         try {
             InsertarProducto p1 = new InsertarProducto();
             p1.setId_pedido(id_pedido);
@@ -77,83 +80,82 @@ public class MenuTragos extends javax.swing.JPanel {
             id_producto_pedido = p1.getIdregreso();
             //JOptionPane.showMessageDialog(null, "Producto Agregado");
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "QUE MIERDA PASA= "+e);
+            JOptionPane.showMessageDialog(null, "QUE MIERDA PASA= " + e);
         }
-         INICIO.ListarProductosPedidos();
-         existe = 0;
-    }
-     
-     private void UpdateCantidad() {
-        try {
-                 BDConexionSP conecta = new BDConexionSP();
-                 Connection con = conecta.getConexion();
-                 PreparedStatement smtp = null;
-                 smtp = con.prepareStatement("update VENTAS SET CANTIDAD = CANTIDAD+1, TOTAL = CANTIDAD*(SELECT PRECIO FROM productos WHERE CODIGO = "+id_producto+") WHERE NOORDEN = "+id_pedido+" AND CODIGO = "+id_producto);
-                 smtp.executeUpdate();
-                 con.close();
-                 smtp.close();
-               // JOptionPane.showMessageDialog(null, "Guardado...");
-            } catch (SQLException ex) {
-                JOptionPane.showConfirmDialog(null, ex);
-            }
-        
         INICIO.ListarProductosPedidos();
         existe = 0;
     }
-     
-     public  void BuscarExistencia() {
-            try {
-                BDConexionSP conecta = new BDConexionSP();
-                Connection cn = conecta.getConexion();
-                java.sql.Statement stmt = cn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT cantidad as EXISTE FROM ventas  WHERE NOORDEN =  "+id_pedido+" AND CODIGO ="+id_producto );
-                while (rs.next()) {
-                    existe = rs.getInt(1);
-                }
-                rs.close();
-                stmt.close();
-                cn.close();
-            } catch (Exception error) {
-                System.out.print(error);
-            }
-            
-        }
-     
-     private void UpdateCantidadMenos() {
+
+    private void UpdateCantidad() {
         try {
-                 BDConexionSP conecta = new BDConexionSP();
-                 Connection con = conecta.getConexion();
-                 PreparedStatement smtp = null;
-                 smtp = con.prepareStatement("update VENTAS SET CANTIDAD = CANTIDAD-1,Total = TOTAL-(SELECT PRECIO FROM productos WHERE CODIGO = "+id_producto+") WHERE NOORDEN = "+id_pedido+" AND CODIGO = "+id_producto);
-                 smtp.executeUpdate();
-                 con.close();
-                 smtp.close();
-               // JOptionPane.showMessageDialog(null, "Guardado...");
-            } catch (SQLException ex) {
-                JOptionPane.showConfirmDialog(null, ex);
-            }
-        
+            BDConexionSP conecta = new BDConexionSP();
+            Connection con = conecta.getConexion();
+            PreparedStatement smtp = null;
+            smtp = con.prepareStatement("update VENTAS SET CANTIDAD = CANTIDAD+1, TOTAL = CANTIDAD*(SELECT PRECIO FROM productos WHERE CODIGO = " + id_producto + ") WHERE NOORDEN = " + id_pedido + " AND CODIGO = " + id_producto);
+            smtp.executeUpdate();
+            con.close();
+            smtp.close();
+            // JOptionPane.showMessageDialog(null, "Guardado...");
+        } catch (SQLException ex) {
+            JOptionPane.showConfirmDialog(null, ex);
+        }
+
         INICIO.ListarProductosPedidos();
         existe = 0;
     }
-     
-    private void eliminarProducto(){
+
+    public void BuscarExistencia() {
+        try {
+            BDConexionSP conecta = new BDConexionSP();
+            Connection cn = conecta.getConexion();
+            java.sql.Statement stmt = cn.createStatement();
+            ResultSet rs = stmt.executeQuery("SELECT cantidad as EXISTE FROM ventas  WHERE NOORDEN =  " + id_pedido + " AND CODIGO =" + id_producto);
+            while (rs.next()) {
+                existe = rs.getInt(1);
+            }
+            rs.close();
+            stmt.close();
+            cn.close();
+        } catch (Exception error) {
+            System.out.print(error);
+        }
+
+    }
+
+    private void UpdateCantidadMenos() {
+        try {
+            BDConexionSP conecta = new BDConexionSP();
+            Connection con = conecta.getConexion();
+            PreparedStatement smtp = null;
+            smtp = con.prepareStatement("update VENTAS SET CANTIDAD = CANTIDAD-1,Total = TOTAL-(SELECT PRECIO FROM productos WHERE CODIGO = " + id_producto + ") WHERE NOORDEN = " + id_pedido + " AND CODIGO = " + id_producto);
+            smtp.executeUpdate();
+            con.close();
+            smtp.close();
+            // JOptionPane.showMessageDialog(null, "Guardado...");
+        } catch (SQLException ex) {
+            JOptionPane.showConfirmDialog(null, ex);
+        }
+
+        INICIO.ListarProductosPedidos();
+        existe = 0;
+    }
+
+    private void eliminarProducto() {
         try {
             BDConexionSP conecta = new BDConexionSP();
             Connection con = conecta.getConexion();
             PreparedStatement ps = null;
-            ps= con.prepareStatement("delete from Ventas where noorden="+id_pedido+" and codigo = "+id_producto);
+            ps = con.prepareStatement("delete from Ventas where noorden=" + id_pedido + " and codigo = " + id_producto);
             ps.executeUpdate();
             con.close();
             ps.close();
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(null,"ERROr = "+ex);
+            JOptionPane.showMessageDialog(null, "ERROr = " + ex);
         }
         INICIO.ListarProductosPedidos();
         existe = 0;
- }
-    
-    
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -182,7 +184,7 @@ public class MenuTragos extends javax.swing.JPanel {
         P9 = new Clases.PanelRound();
         T9 = new javax.swing.JLabel();
         P10 = new Clases.PanelRound();
-        P111 = new javax.swing.JLabel();
+        T10 = new javax.swing.JLabel();
         P11 = new Clases.PanelRound();
         T11 = new javax.swing.JLabel();
         P12 = new Clases.PanelRound();
@@ -467,12 +469,12 @@ public class MenuTragos extends javax.swing.JPanel {
         P10.setRoundTopLeft(20);
         P10.setRoundTopRight(20);
 
-        P111.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        P111.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        P111.setText("jagger bom");
-        P111.addMouseListener(new java.awt.event.MouseAdapter() {
+        T10.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
+        T10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        T10.setText("jagger bom");
+        T10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                P111MousePressed(evt);
+                T10MousePressed(evt);
             }
         });
 
@@ -480,11 +482,11 @@ public class MenuTragos extends javax.swing.JPanel {
         P10.setLayout(P10Layout);
         P10Layout.setHorizontalGroup(
             P10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(P111, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+            .addComponent(T10, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
         );
         P10Layout.setVerticalGroup(
             P10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(P111, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
+            .addComponent(T10, javax.swing.GroupLayout.DEFAULT_SIZE, 70, Short.MAX_VALUE)
         );
 
         P11.setBackground(new java.awt.Color(204, 255, 204));
@@ -723,7 +725,7 @@ public class MenuTragos extends javax.swing.JPanel {
         P19.setLayout(P19Layout);
         P19Layout.setHorizontalGroup(
             P19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(T19, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+            .addComponent(T19, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
         );
         P19Layout.setVerticalGroup(
             P19Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -791,7 +793,7 @@ public class MenuTragos extends javax.swing.JPanel {
         P22.setRoundTopLeft(20);
         P22.setRoundTopRight(20);
 
-        T22.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        T22.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T22.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         T22.setText("bacardi");
         T22.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -818,7 +820,7 @@ public class MenuTragos extends javax.swing.JPanel {
         P23.setRoundTopLeft(20);
         P23.setRoundTopRight(20);
 
-        T23.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        T23.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T23.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         T23.setText("mojito");
         T23.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -845,7 +847,7 @@ public class MenuTragos extends javax.swing.JPanel {
         P24.setRoundTopLeft(20);
         P24.setRoundTopRight(20);
 
-        T24.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        T24.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T24.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         T24.setText("piña colada");
         T24.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -872,7 +874,7 @@ public class MenuTragos extends javax.swing.JPanel {
         P25.setRoundTopLeft(20);
         P25.setRoundTopRight(20);
 
-        T25.setFont(new java.awt.Font("Arial", 1, 10)); // NOI18N
+        T25.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T25.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         T25.setText("sangria");
         T25.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -1015,478 +1017,769 @@ public class MenuTragos extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void T1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T1MousePressed
-       if ((evt.getModifiers() & 4) !=0){
-           id_producto = 134;
+        if ((evt.getModifiers() & 4) != 0) {
+            id_producto = 134;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P1.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
-           id_producto = 134;
+        } else {
+            id_producto = 134;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P1.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T1MousePressed
 
     private void T5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T5MousePressed
-       if ((evt.getModifiers() & 4) !=0){
-           id_producto = 137;
+        if ((evt.getModifiers() & 4) != 0) {
+            id_producto = 137;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P5.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 137;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P5.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T5MousePressed
 
     private void T9MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T9MousePressed
-       if ((evt.getModifiers() & 4) !=0){
-           id_producto = 140;
+        if ((evt.getModifiers() & 4) != 0) {
+            id_producto = 140;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P9.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 140;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P9.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T9MousePressed
 
     private void T13MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T13MousePressed
-        if ((evt.getModifiers() & 4) !=0){
+        if ((evt.getModifiers() & 4) != 0) {
             id_producto = 143;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P13.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 143;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P13.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T13MousePressed
 
     private void T17MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T17MousePressed
-       if ((evt.getModifiers() & 4) !=0){
-           id_producto = 146;
+        if ((evt.getModifiers() & 4) != 0) {
+            id_producto = 146;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P17.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 146;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P17.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T17MousePressed
 
     private void T2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T2MousePressed
-       if ((evt.getModifiers() & 4) !=0){
-           id_producto = 135;
+        if ((evt.getModifiers() & 4) != 0) {
+            id_producto = 135;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P2.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 135;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P2.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T2MousePressed
 
     private void T6MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T6MousePressed
-       if ((evt.getModifiers() & 4) !=0){
+        if ((evt.getModifiers() & 4) != 0) {
             id_producto = 138;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P6.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 138;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P6.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T6MousePressed
 
-    private void P111MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_P111MousePressed
-       if ((evt.getModifiers() & 4) !=0){
+    private void T10MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T10MousePressed
+        if ((evt.getModifiers() & 4) != 0) {
             id_producto = 141;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P10.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 141;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P10.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
-    }//GEN-LAST:event_P111MousePressed
+        }
+    }//GEN-LAST:event_T10MousePressed
 
     private void T14MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T14MousePressed
-       if ((evt.getModifiers() & 4) !=0){
+        if ((evt.getModifiers() & 4) != 0) {
             id_producto = 144;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P14.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 144;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P14.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T14MousePressed
 
     private void T18MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T18MousePressed
-       if ((evt.getModifiers() & 4) !=0){
+        if ((evt.getModifiers() & 4) != 0) {
             id_producto = 147;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P18.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 147;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P18.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T18MousePressed
 
     private void T3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T3MousePressed
-       if ((evt.getModifiers() & 4) !=0){
+        if ((evt.getModifiers() & 4) != 0) {
             id_producto = 136;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P3.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 136;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P3.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T3MousePressed
 
     private void T7MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T7MousePressed
-        if ((evt.getModifiers() & 4) !=0){
+        if ((evt.getModifiers() & 4) != 0) {
             id_producto = 139;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P7.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 139;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P7.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T7MousePressed
 
     private void T11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T11MousePressed
-        if ((evt.getModifiers() & 4) !=0){
+        if ((evt.getModifiers() & 4) != 0) {
             id_producto = 142;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P11.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 142;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P11.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T11MousePressed
 
     private void T15MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T15MousePressed
-       if ((evt.getModifiers() & 4) !=0){
+        if ((evt.getModifiers() & 4) != 0) {
             id_producto = 145;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P15.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 145;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P15.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T15MousePressed
 
     private void T26MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T26MousePressed
-        
+
     }//GEN-LAST:event_T26MousePressed
 
     private void T4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T4MousePressed
-        if ((evt.getModifiers() & 4) !=0){
+        if ((evt.getModifiers() & 4) != 0) {
             id_producto = 167;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P4.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 167;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P4.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T4MousePressed
 
     private void T8MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T8MousePressed
-       if ((evt.getModifiers() & 4) !=0){
+        if ((evt.getModifiers() & 4) != 0) {
             id_producto = 168;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P8.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 168;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P8.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T8MousePressed
 
     private void T12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T12MousePressed
-         if ((evt.getModifiers() & 4) !=0){
+        if ((evt.getModifiers() & 4) != 0) {
             id_producto = 169;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P12.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 169;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P12.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T12MousePressed
 
     private void T16MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T16MousePressed
-         if ((evt.getModifiers() & 4) !=0){
+        if ((evt.getModifiers() & 4) != 0) {
             id_producto = 170;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P16.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 170;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P16.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T16MousePressed
 
     private void T21MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T21MousePressed
-         if ((evt.getModifiers() & 4) !=0){
+        if ((evt.getModifiers() & 4) != 0) {
             id_producto = 171;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P21.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 171;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P21.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T21MousePressed
 
     private void T22MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T22MousePressed
-        if ((evt.getModifiers() & 4) !=0){
-            id_producto = 173;
+        if ((evt.getModifiers() & 4) != 0) {
+            id_producto = 214;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P22.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
-            id_producto = 173;
+        } else {
+            id_producto = 214;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P22.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T22MousePressed
 
     private void T23MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T23MousePressed
-        // TODO add your handling code here:
+      if ((evt.getModifiers() & 4) != 0) {
+            id_producto = 211;
+            BuscarExistencia();
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
+            P23.setBackground(Color.darkGray);
+            timer.setRepeats(false);
+            timer.start();
+        } else {
+            id_producto = 211;
+            BuscarExistencia();
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
+            P23.setBackground(Color.YELLOW);
+            timer.setRepeats(false);
+            timer.start();
+        }
     }//GEN-LAST:event_T23MousePressed
 
     private void T24MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T24MousePressed
-        // TODO add your handling code here:
+        if ((evt.getModifiers() & 4) != 0) {
+            id_producto = 210;
+            BuscarExistencia();
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
+            P24.setBackground(Color.darkGray);
+            timer.setRepeats(false);
+            timer.start();
+        } else {
+            id_producto = 210;
+            BuscarExistencia();
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
+            P24.setBackground(Color.YELLOW);
+            timer.setRepeats(false);
+            timer.start();
+        }
     }//GEN-LAST:event_T24MousePressed
 
     private void T25MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T25MousePressed
-        // TODO add your handling code here:
+       if ((evt.getModifiers() & 4) != 0) {
+            id_producto = 212;
+            BuscarExistencia();
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
+            P25.setBackground(Color.darkGray);
+            timer.setRepeats(false);
+            timer.start();
+        } else {
+            id_producto = 212;
+            BuscarExistencia();
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
+            P25.setBackground(Color.YELLOW);
+            timer.setRepeats(false);
+            timer.start();
+        }
     }//GEN-LAST:event_T25MousePressed
 
     private void T19MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T19MousePressed
-       if ((evt.getModifiers() & 4) !=0){
+        if ((evt.getModifiers() & 4) != 0) {
             id_producto = 148;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P19.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
+        } else {
             id_producto = 148;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P19.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T19MousePressed
 
     private void T20MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T20MousePressed
-        if ((evt.getModifiers() & 4) !=0){
-            id_producto = 148;
+        if ((evt.getModifiers() & 4) != 0) {
+            id_producto = 213;
             BuscarExistencia();
-            if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
+            if (existe >= 2) {
+                UpdateCantidadMenos();
+            } else if (existe == 1) {
+                eliminarProducto();
+            } else {
+                JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
+            }
             P19.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
-          }else{
-            id_producto = 148;
+        } else {
+            id_producto = 213;
             BuscarExistencia();
-            if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
+            if (existe == 0) {
+                InsertarProductoPedido();
+            } else {
+                UpdateCantidad();
+            }
             P19.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
-       }
+        }
     }//GEN-LAST:event_T20MousePressed
 
-    
-    public void TextosLabel(){
-    
-    String texto1 = "<html><center><body>VIP<br><font color='RED'>Q20.00</font></body></center></html>";
+    public void TextosLabel() {
+
+        String texto1 = "<html><center><body>VIP<br><font color='RED'>Q20.00</font></body></center></html>";
         T1.setText(texto1);
-    String texto2 = "<html><center><body>CUBA LIBRE<br><font color='RED'>Q25.00</font></body></center></html>";
+        String texto2 = "<html><center><body>CUBA LIBRE<br><font color='RED'>Q25.00</font></body></center></html>";
         T2.setText(texto2);
-    String texto3 = "<html><center><body>TORMENTA NEGRA<br><font color='RED'>Q25.00</font></body></center></html>";
-        T3.setText(texto3);    
-    String texto4 = "<html><center><body>CORONA PREPARADA<br>DE LA CASA<br><font color='RED'>Q30.00</font></body></center></html>";
-        T5.setText(texto4);
-    String texto5 = "<html><center><body>CUBA<br><font color='RED'>Q25.00</font></body></center></html>";
-        T6.setText(texto5);    
-    String texto6 = "<html><center><body>MICHELADA<br>DE LA CASA<br><font color='RED'>Q35.00</font></body></center></html>";
-        T7.setText(texto6);
-    String texto7 = "<html><center><body>GIN-TONIC<br><font color='RED'>Q30.00</font></body></center></html>";
-        T9.setText(texto7);
-    String texto8 = "<html><center><body>JAGGER BOMB<br><font color='RED'>30.00</center></html>";
-        P111.setText(texto8);    
-    String texto9 = "<html><center><body>MARGARONA<br><font color='RED'>Q30.00</body></center></html>";
-        T11.setText(texto9);
-    String texto10 = "<html><center><body>QUITA CRUDAS<br><font color='RED'>Q30.00</body></center></html>";
-        T13.setText(texto10);  
-    String texto11 = "<html><center><body>CHELADA<br><font color='RED'>Q30</body></center></html>";
-        T14.setText(texto11);
-    String texto12 = "<html><center><body>CIMARRONA<br><font color='RED'>Q30.00</center></html>";
-        T15.setText(texto12);
-    String texto13 = "<html><center><body>SHOT DE TEQUILA<br><font color='RED'>Q100.00</body></center></html>";
-        T17.setText(texto13);    
-    String texto14 = "<html><center><body>WHISKY A LAS<br>ROCAS<br><font color='RED'>Q35.00</body></center></html>";
-        T18.setText(texto14);
-    String texto15 = "<html><center><body>15 TEQUILAS<br><font color='RED'>Q200.00</body></center></html>";
-        T26.setText(texto15);  
-    String texto16 = "<html><center><body>QUETZALTECA A<br>LAS ROCAS<br><font color='RED'>Q20.00</body></center></html>";
-        T4.setText(texto16);  
-    String texto17 = "<html><center><body>QUETZALTECA<br>PREPARADA<br><font color='RED'>Q35</body></center></html>";
-        T8.setText(texto17);
-    String texto18 = "<html><center><body>XL<br>PREPARADO<br><font color='RED'>Q35.00</center></html>";
-        T12.setText(texto18);
-    String texto19 = "<html><center><body>PICONAS<br><font color='RED'>Q25.00</body></center></html>";
-        T16.setText(texto19);    
-    String texto20 = "<html><center><body>MARGARITA<br><font color='RED'>Q35.00</body></center></html>";
-        T21.setText(texto20);
-         String texto21 = "<html><center><body>GASEOSA<br>MIRINDA / SEVEN<br>PEPSI / GRAPETE<br>SALUTARIS/MOUNTAIN DEW<br><font color='RED'>Q10.00</body></center></html>";
-        T22.setText(texto21);  
-
-         String texto22 = "<html><center><body>GASEOSA<br>MIRINDA / SEVEN<br>PEPSI / GRAPETE<br>SALUTARIS/MOUNTAIN DEW<br><font color='RED'>Q10.00</body></center></html>";
-        T22.setText(texto22);  
-
- String texto24 = "<html><center><body>GASEOSA<br>MIRINDA / SEVEN<br>PEPSI / GRAPETE<br>SALUTARIS/MOUNTAIN DEW<br><font color='RED'>Q10.00</body></center></html>";
-        T22.setText(texto24);
-        
+        String texto3 = "<html><center><body>TORMENTA NEGRA<br><font color='RED'>Q25.00</font></body></center></html>";
+        T3.setText(texto3);
+        String texto4 = "<html><center><body>QUETZALTECA A<br>LAS ROCAS<br><font color='RED'>Q20.00</body></center></html>";
+        T4.setText(texto4);
+        String texto5 = "<html><center><body>CORONA PREPARADA<br>DE LA CASA<br><font color='RED'>Q30.00</font></body></center></html>";
+        T5.setText(texto5);
+        String texto6 = "<html><center><body>CUBA<br><font color='RED'>Q25.00</font></body></center></html>";
+        T6.setText(texto6);
+        String texto7 = "<html><center><body>MICHELADA<br>DE LA CASA<br><font color='RED'>Q35.00</font></body></center></html>";
+        T7.setText(texto7);
+        String texto8 = "<html><center><body>QUEZALTECA PREPARADAB<br><font color='RED'>35.00</center></html>";
+        T8.setText(texto8);
+        String texto9 = "<html><center><body>GIN-TONIC<br><font color='RED'>Q30.00</font></body></center></html>";
+        T9.setText(texto9);
+        String texto10 = "<html><center><body>JAGGER BOMB<br><font color='RED'>Q30.00</body></center></html>";
+        T10.setText(texto10);
+        String texto11 = "<html><center><body>MARGARONA<br><font color='RED'>Q30.00</body></center></html>";
+        T11.setText(texto11);
+        String texto12 = "<html><center><body>XL<br>PREPARADO<br><font color='RED'>Q35.00</center></html>";
+        T12.setText(texto12);
+        String texto13 = "<html><center><body>QUITA CURDAS<br><font color='RED'>Q100.00</body></center></html>";
+        T13.setText(texto13);
+        String texto14 = "<html><center><body>CHELADA<br><font color='RED'>Q30</body></center></html>";
+        T14.setText(texto14);
+        String texto15 = "<html><center><body>CIMARRONA<br><font color='RED'>Q30.00</center></html>";
+        T15.setText(texto15);
+        String texto16 = "<html><center><body>PICONAS<br><font color='RED'>Q25.00</body></center></html>";
+        T16.setText(texto16);
+        String texto17 = "<html><center><body>SHOT DE TEQUILA<br><font color='RED'>Q30</body></center></html>";
+        T17.setText(texto17);
+        String texto18 = "<html><center><body>WHISKY A LAS<br>ROCAS<br><font color='RED'>Q35.00</body></center></html>";
+        T18.setText(texto18);
+        String texto19 = "<html><center><body>15 TEQUILAS<br><font color='RED'>Q200.00</body></center></html>";
+        T19.setText(texto19);
+        String texto20 = "<html><center><body>6 TEQUILAS<br><font color='RED'>Q100.00</body></center></html>";
+        T20.setText(texto20);
+        String texto21 = "<html><center><body>MARGARITA<br><font color='RED'>Q35.00</body></center></html>";
+        T21.setText(texto21);
+        String texto22 = "<html><center><body>BACARDI<br><font color='RED'>Q20.00</body></center></html>";
+        T22.setText(texto22);
+        String texto23 = "<html><center><body>MOJITO<br><font color='RED'>Q35.00</body></center></html>";
+        T23.setText(texto23);
+        String texto24 = "<html><center><body>PIÑA COLADA<br><font color='RED'>Q35.00</body></center></html>";
+        T24.setText(texto24);
+        String texto25 = "<html><center><body>SANGRIA<br><font color='RED'>Q35.00</body></center></html>";
+        T25.setText(texto25);
 
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private Clases.PanelRound P1;
     private Clases.PanelRound P10;
     private Clases.PanelRound P11;
-    private javax.swing.JLabel P111;
     private Clases.PanelRound P12;
     private Clases.PanelRound P13;
     private Clases.PanelRound P14;
@@ -1510,6 +1803,7 @@ public class MenuTragos extends javax.swing.JPanel {
     private Clases.PanelRound P8;
     private Clases.PanelRound P9;
     private javax.swing.JLabel T1;
+    private javax.swing.JLabel T10;
     private javax.swing.JLabel T11;
     private javax.swing.JLabel T12;
     private javax.swing.JLabel T13;
