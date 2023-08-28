@@ -1695,7 +1695,7 @@ public class MenuCervezas extends javax.swing.JPanel {
         T24.setText(texto24);    
         String texto25 = "<html><center><body>CUBETAZO<br>DORADA DRAF<br><font color='RED'>Q100.00</body></center></html>";
         T25.setText(texto25);    
-        String texto26 = "<html><center><body>CUBETAZO<br>MICHELOB<br><font color='RED'>Q150.00</body></center></html>";
+        String texto26 = "<html><center><body>CUBETAZO<br>MICHELOB<br><font color='RED'>Q115.00</body></center></html>";
         T26.setText(texto26);  
         String texto27 = "<html><center><body>CAJA DE CERVEZA<br>24 UNIDADS<br><font color='RED'>Q300.00</body></center></html>";
         T27.setText(texto27);  

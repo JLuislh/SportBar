@@ -861,14 +861,14 @@ public class MenuComida extends javax.swing.JPanel {
             id_producto = 220;
             BuscarExistencia();
             if(existe >= 2){UpdateCantidadMenos();} else if (existe == 1){eliminarProducto();} else{JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");}
-            P9.setBackground(Color.darkGray);
+            P10.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
         }else{
             id_producto = 220;
             BuscarExistencia();
             if(existe == 0){InsertarProductoPedido();}else{UpdateCantidad();}
-            P9.setBackground(Color.YELLOW);
+            P10.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
         }

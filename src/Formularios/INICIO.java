@@ -10,6 +10,7 @@ import Clases.InsertarProducto;
 import clas.TextAreaRenderer;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Image;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.BorderFactory;
@@ -19,6 +20,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -59,7 +62,6 @@ public class INICIO extends javax.swing.JFrame {
        
         this.setExtendedState(MAXIMIZED_BOTH); 
         
-        //this.setExtendedState(MAXIMIZED_BOTH);
         
        // PaneldeInicio.setSize(1025, 400);
     }
@@ -77,6 +79,8 @@ public class INICIO extends javax.swing.JFrame {
            JOptionPane.showMessageDialog(null,"ERROr = "+ex);
         }
  }
+    
+
   
    
     private void CambiarBodes(){
