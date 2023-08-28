@@ -174,9 +174,7 @@ public class MenuMariscos extends javax.swing.JPanel {
         P10 = new Clases.PanelRound();
         T10 = new javax.swing.JLabel();
         P11 = new Clases.PanelRound();
-        T11 = new javax.swing.JLabel();
         P12 = new Clases.PanelRound();
-        T12 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(102, 204, 255));
 
@@ -271,6 +269,7 @@ public class MenuMariscos extends javax.swing.JPanel {
         T4.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         T4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         T4.setText("TACOS DE CAMARON");
+        T4.setPreferredSize(new java.awt.Dimension(180, 75));
         T4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 T4MousePressed(evt);
@@ -281,11 +280,11 @@ public class MenuMariscos extends javax.swing.JPanel {
         P4.setLayout(P4Layout);
         P4Layout.setHorizontalGroup(
             P4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(T4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+            .addComponent(T4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         P4Layout.setVerticalGroup(
             P4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(T4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+            .addComponent(T4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         P5.setBackground(new java.awt.Color(204, 255, 204));
@@ -457,24 +456,15 @@ public class MenuMariscos extends javax.swing.JPanel {
         P11.setRoundTopLeft(20);
         P11.setRoundTopRight(20);
 
-        T11.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        T11.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T11.setText("11");
-        T11.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                T11MousePressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout P11Layout = new javax.swing.GroupLayout(P11);
         P11.setLayout(P11Layout);
         P11Layout.setHorizontalGroup(
             P11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(T11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+            .addGap(0, 180, Short.MAX_VALUE)
         );
         P11Layout.setVerticalGroup(
             P11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(T11, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+            .addGap(0, 75, Short.MAX_VALUE)
         );
 
         P12.setBackground(new java.awt.Color(204, 255, 204));
@@ -484,24 +474,15 @@ public class MenuMariscos extends javax.swing.JPanel {
         P12.setRoundTopLeft(20);
         P12.setRoundTopRight(20);
 
-        T12.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
-        T12.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        T12.setText("12");
-        T12.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mousePressed(java.awt.event.MouseEvent evt) {
-                T12MousePressed(evt);
-            }
-        });
-
         javax.swing.GroupLayout P12Layout = new javax.swing.GroupLayout(P12);
         P12.setLayout(P12Layout);
         P12Layout.setHorizontalGroup(
             P12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(T12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+            .addGap(0, 180, Short.MAX_VALUE)
         );
         P12Layout.setVerticalGroup(
             P12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(T12, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 75, Short.MAX_VALUE)
+            .addGap(0, 75, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -731,14 +712,6 @@ public class MenuMariscos extends javax.swing.JPanel {
        }
     }//GEN-LAST:event_T10MousePressed
 
-    private void T11MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T11MousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_T11MousePressed
-
-    private void T12MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T12MousePressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_T12MousePressed
-
     private void T4MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T4MousePressed
        if ((evt.getModifiers() & 4) !=0){
            id_producto = 226;
@@ -761,12 +734,24 @@ public class MenuMariscos extends javax.swing.JPanel {
     
     String texto1 = "<html><center><body>AGUACHILE<br><font color='RED'>Q85.00</font></body></center></html>";
         T1.setText(texto1);
-    
-    String texto3 = "<html><center><body>CEVICHON PEREZ<br>GRANDE<br><font color='RED'>Q60.00</font></body></center></html>";
-        T2.setText(texto3);
-    String texto4 = "<html><center><body>CEVICHON PEREZ<br>MEDIANO<br><font color='RED'>Q40.00</font></body></center></html>";
-        T3.setText(texto4);    
-   
+    String texto2 = "<html><center><body>CEVICHON PEREZ<br>GRANDE<br><font color='RED'>Q60.00</font></body></center></html>";
+        T2.setText(texto2);
+    String texto3 = "<html><center><body>CEVICHON PEREZ<br>MEDIANO<br><font color='RED'>Q40.00</font></body></center></html>";
+        T3.setText(texto3);    
+        String texto4 = "<html><center><body>TACOS DE CAMARON<br><font color='RED'>Q20.00</font></body></center></html>";
+        T4.setText(texto4);
+        String texto5 = "<html><center><body>CAMARONES AL AJILLO<br><font color='RED'>Q50.00</font></body></center></html>";
+        T5.setText(texto5);
+        String texto6 = "<html><center><body>CAMARONES AL MOJO DE AJO PEREZ<br>MEDIANO<br><font color='RED'>Q50.00</font></body></center></html>";
+        T6.setText(texto6);
+        String texto7 = "<html><center><body>CAMARONES EMPANIZADOS<br><font color='RED'>Q50.00</font></body></center></html>";
+        T7.setText(texto7);
+        String texto8 = "<html><center><body>MOJARA FRITA<br><font color='RED'>Q60.00</font></body></center></html>";
+        T8.setText(texto8);
+        String texto9 = "<html><center><body>CONCHAS PREPARAS<br>6 UNIT<br><font color='RED'>Q50.00</font></body></center></html>";
+        T9.setText(texto9);
+        String texto10 = "<html><center><body>CONCHAS PREPARAS<br>12 UNIT<br><font color='RED'>Q100.00</font></body></center></html>";
+        T10.setText(texto10);
     }
     
 
@@ -785,8 +770,6 @@ public class MenuMariscos extends javax.swing.JPanel {
     private Clases.PanelRound P9;
     private javax.swing.JLabel T1;
     private javax.swing.JLabel T10;
-    private javax.swing.JLabel T11;
-    private javax.swing.JLabel T12;
     private javax.swing.JLabel T2;
     private javax.swing.JLabel T3;
     private javax.swing.JLabel T4;
