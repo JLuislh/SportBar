@@ -728,17 +728,17 @@ public class MenuMariscos extends javax.swing.JPanel {
     
     public void TextosLabel(){
     
-    String texto1 = "<html><center><body>AGUACHILE<br><font color='RED'>Q85.00</font></body></center></html>";
+        String texto1 = "<html><center><body>AGUACHILE<br><font color='RED'>Q85.00</font></body></center></html>";
         T1.setText(texto1);
-    String texto2 = "<html><center><body>CEVICHON PEREZ<br>GRANDE<br><font color='RED'>Q60.00</font></body></center></html>";
+        String texto2 = "<html><center><body>CEVICHON PEREZ<br>GRANDE<br><font color='RED'>Q60.00</font></body></center></html>";
         T2.setText(texto2);
-    String texto3 = "<html><center><body>CEVICHON PEREZ<br>MEDIANO<br><font color='RED'>Q40.00</font></body></center></html>";
+        String texto3 = "<html><center><body>CEVICHON PEREZ<br>MEDIANO<br><font color='RED'>Q40.00</font></body></center></html>";
         T3.setText(texto3);    
         String texto4 = "<html><center><body>TACOS DE CAMARON<br><font color='RED'>Q20.00</font></body></center></html>";
         T4.setText(texto4);
         String texto5 = "<html><center><body>CAMARONES AL AJILLO<br><font color='RED'>Q50.00</font></body></center></html>";
         T5.setText(texto5);
-        String texto6 = "<html><center><body>CAMARONES AL MOJO DE AJO PEREZ<br>MEDIANO<br><font color='RED'>Q50.00</font></body></center></html>";
+        String texto6 = "<html><center><body>CAMARONES AL MOJO DE AJO<br><font color='RED'>Q50.00</font></body></center></html>";
         T6.setText(texto6);
         String texto7 = "<html><center><body>CAMARONES EMPANIZADOS<br><font color='RED'>Q50.00</font></body></center></html>";
         T7.setText(texto7);

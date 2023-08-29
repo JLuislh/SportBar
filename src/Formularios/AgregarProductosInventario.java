@@ -8,7 +8,7 @@ import Clases.BDIngresos;
 import Clases.BDProductos;
 import Clases.InsertarProducto;
 import Class.BDConexionSP;
-import classs.TextAreaRenderer;
+import Clases.TextAreaRenderer;
 import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

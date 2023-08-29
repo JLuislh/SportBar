@@ -1703,7 +1703,7 @@ public class MenuTragos extends javax.swing.JPanel {
             } else {
                 JOptionPane.showMessageDialog(this, "Aun no tienes agregado este producto");
             }
-            P19.setBackground(Color.darkGray);
+            P20.setBackground(Color.darkGray);
             timer.setRepeats(false);
             timer.start();
         } else {
@@ -1714,7 +1714,7 @@ public class MenuTragos extends javax.swing.JPanel {
             } else {
                 UpdateCantidad();
             }
-            P19.setBackground(Color.YELLOW);
+            P20.setBackground(Color.YELLOW);
             timer.setRepeats(false);
             timer.start();
         }
@@ -1738,9 +1738,9 @@ public class MenuTragos extends javax.swing.JPanel {
         T7.setText(texto7);
         String texto8 = "<html><center><body>QUEZALTECA PREPARADAB<br><font color='RED'>35.00</center></html>";
         T8.setText(texto8);
-        String texto9 = "<html><center><body>GIN-TONIC<br><font color='RED'>Q30.00</font></body></center></html>";
+        String texto9 = "<html><center><body>GIN-TONIC<br><font color='RED'>Q35.00</font></body></center></html>";
         T9.setText(texto9);
-        String texto10 = "<html><center><body>JAGGER BOMB<br><font color='RED'>Q30.00</body></center></html>";
+        String texto10 = "<html><center><body>JAGGER BOMB<br><font color='RED'>Q35.00</body></center></html>";
         T10.setText(texto10);
         String texto11 = "<html><center><body>MARGARONA<br><font color='RED'>Q30.00</body></center></html>";
         T11.setText(texto11);

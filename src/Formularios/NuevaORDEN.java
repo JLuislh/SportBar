@@ -4,16 +4,12 @@
  */
 package Formularios;
 
-import Clases.BDConexionSP;
 import Clases.BDProductos;
 import Clases.InsertarProducto;
 import java.awt.Image;
-import java.sql.Connection;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -25,8 +21,10 @@ import javax.swing.UnsupportedLookAndFeelException;
  * @author jluis
  */
 public class NuevaORDEN extends javax.swing.JFrame {
-     int id_pedido;
-     String fecha;
+
+    int id_pedido;
+    String fecha;
+
     /**
      * Creates new form NuevaORDEN
      */
@@ -43,43 +41,48 @@ public class NuevaORDEN extends javax.swing.JFrame {
         String texto3 = "<html><center><body>ADMINISTRADOR</body></center></html>";
         T3.setText(texto3);
         setLocationRelativeTo(null);
-        this.setExtendedState(MAXIMIZED_BOTH); 
-        }
-    
-     public void Cfecha() {                                      
-         DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
-         Calendar cal = Calendar.getInstance();
-         fecha=(dateFormat.format(cal.getTime()));
-        }  
-    
-    
-    public void crear(){
-    
-     try {
-            
-             InsertarProducto p = new InsertarProducto();
+        this.setExtendedState(MAXIMIZED_BOTH);
+    }
+
+    public void Cfecha() {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/YYYY");
+        Calendar cal = Calendar.getInstance();
+        fecha = (dateFormat.format(cal.getTime()));
+    }
+
+    public void crear() {
+
+        try {
+
+            InsertarProducto p = new InsertarProducto();
             BDProductos.InsertarPedido(p);
             id_pedido = p.getIdregresoPedido();
         } catch (Exception ex) {
             //Logger.getLogger(ConsultaPedidos.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(null, ex);
         }
-        
-                  //System.out.println("ID ="+id_pedido);
-                  INICIO F = new INICIO(id_pedido);
-                  F.setVisible(true);
-                  this.dispose();
-    
+
+        //System.out.println("ID ="+id_pedido);
+        INICIO F = new INICIO(id_pedido);
+        F.setVisible(true);
+        this.dispose();
+
     }
-    
-         private void imagen(){
-    
-        ImageIcon imgIcon = new ImageIcon(getClass().getResource("/img/logoBar-preview.png"));
-        Image imgEscalada = imgIcon.getImage().getScaledInstance(imagen.getWidth(),
-        imagen.getHeight(), Image.SCALE_SMOOTH);
-        Icon iconoEscalado = new ImageIcon(imgEscalada);
-        imagen.setIcon(iconoEscalado);
-    
+
+    private void imagen() {
+
+        try {
+            ImageIcon imgIcon = new ImageIcon(getClass().getResource("/Img/logoBar-preview.png"));
+            Image imgEscalada = imgIcon.getImage().getScaledInstance(imagen.getWidth(),
+                    imagen.getHeight(), Image.SCALE_SMOOTH);
+            Icon iconoEscalado = new ImageIcon(imgEscalada);
+            imagen.setIcon(iconoEscalado);
+        } catch (Exception e) {
+            
+            System.out.println("ERRROR IMAGEN "+e);
+            JOptionPane.showMessageDialog(null, "ERROR + "+e);
+        }
+
     }
 
     /**
@@ -206,12 +209,12 @@ public class NuevaORDEN extends javax.swing.JFrame {
     }//GEN-LAST:event_T1MousePressed
 
     private void T3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T3MousePressed
-        
-                  Contraseña F = new Contraseña();
-                  F.setVisible(true);
-                  this.dispose();
-           
-        
+
+        Contraseña F = new Contraseña();
+        F.setVisible(true);
+        this.dispose();
+
+
     }//GEN-LAST:event_T3MousePressed
 
     /**

@@ -1141,7 +1141,7 @@ public class MenuBotellas extends javax.swing.JPanel {
         T4.setText(texto4);
     String texto5 = "<html><center><body>JOHNY WALKER<br>BLACK LABEL<br><font color='RED'>Q650.00</font></body></center></html>";
         T5.setText(texto5);    
-    String texto6 = "<html><center><body>TEQUILA BLANCO<br>DON JULIO<br><font color='RED'>Q700.00</font></body></center></html>";
+    String texto6 = "<html><center><body>TEQUILA BLANCO<br>DON JULIO<br><font color='RED'>Q720.00</font></body></center></html>";
         T6.setText(texto6);    
     String texto7 = "<html><center><body>XL<br><font color='RED'>Q200.00</font></body></center></html>";
         T7.setText(texto7);

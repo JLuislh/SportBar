@@ -526,17 +526,11 @@ public class MenuSinAlcohol extends javax.swing.JPanel {
         P11.setLayout(P11Layout);
         P11Layout.setHorizontalGroup(
             P11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(P11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(T11, javax.swing.GroupLayout.DEFAULT_SIZE, 138, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(T11, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
         );
         P11Layout.setVerticalGroup(
             P11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(P11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(T11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(40, 40, 40))
+            .addComponent(T11, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
         );
 
         P12.setBackground(new java.awt.Color(102, 204, 255));
@@ -872,17 +866,17 @@ public class MenuSinAlcohol extends javax.swing.JPanel {
         T4.setText(texto4);     
         String texto5 = "<html><center><body>SALUTARIS<br><font color='RED'>Q10.00</body></center></html>";
         T5.setText(texto5); 
-        String texto6 = "<html><center><body>NARANJADA<br><font color='RED'>Q700.00</font></body></center></html>";
+        String texto6 = "<html><center><body>NARANJADA<br><font color='RED'>Q20.00</font></body></center></html>";
         T6.setText(texto6);    
-        String texto7 = "<html><center><body>LIMONDA<br><font color='RED'>Q200.00</font></body></center></html>";
+        String texto7 = "<html><center><body>LIMONDA<br><font color='RED'>Q20.00</font></body></center></html>";
         T7.setText(texto7);
-        String texto8 = "<html><center><body>TE FRIO<br><font color='RED'>Q550.00</font></body></center></html>";
+        String texto8 = "<html><center><body>TE FRIO<br><font color='RED'>Q10.00</font></body></center></html>";
         T8.setText(texto8);
         String texto9 = "<html><center><body>GRAPETE<br><font color='RED'>Q10.00</body></center></html>";
         T9.setText(texto9); 
-        String texto10 = "<html><center><body>NARANJADA CON<br>SODA<br><font color='RED'>Q400.00</body></center></html>";
+        String texto10 = "<html><center><body>NARANJADA CON<br>SODA<br><font color='RED'>Q25.00</body></center></html>";
         T10.setText(texto10);
-    String texto11 = "<html><center><body>LIMONADA CON<br>SODA<br><font color='RED'>Q400.00</body></center></html>";
+    String texto11 = "<html><center><body>LIMONADA CON<br>SODA<br><font color='RED'>Q25.00</body></center></html>";
         T11.setText(texto11);  
         String texto21 = "<html><center><body>JUGO PREPARADO<br><font color='RED'>Q25.00</body></center></html>";
         T21.setText(texto21);
