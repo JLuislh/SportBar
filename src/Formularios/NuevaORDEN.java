@@ -4,9 +4,13 @@
  */
 package Formularios;
 
+import Clases.BDConexion_server;
 import Clases.BDProductos;
 import Clases.InsertarProducto;
 import java.awt.Image;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -24,6 +28,7 @@ public class NuevaORDEN extends javax.swing.JFrame {
 
     int id_pedido;
     String fecha;
+    int estado;
 
     /**
      * Creates new form NuevaORDEN
@@ -34,7 +39,10 @@ public class NuevaORDEN extends javax.swing.JFrame {
 
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
         }
+        logear();
+        if(estado == 1){
         initComponents();
+       
         imagen();
         String texto1 = "<html><center><body>NUEVA<br>ORDEN</body></center></html>";
         T1.setText(texto1);
@@ -42,6 +50,9 @@ public class NuevaORDEN extends javax.swing.JFrame {
         T3.setText(texto3);
         setLocationRelativeTo(null);
         this.setExtendedState(MAXIMIZED_BOTH);
+        }else{JOptionPane.showMessageDialog(null, "NO SE PUEDE INICIAR EL SISTEMA SE PERDIO EL ACCESO AL SERVIDOR DE LICENCIAS");
+         System.exit(1);
+        }
     }
 
     public void Cfecha() {
@@ -83,6 +94,28 @@ public class NuevaORDEN extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "ERROR + "+e);
         }
 
+    }
+    
+    public void logear(){
+    
+    
+        try {
+            BDConexion_server Conn = new BDConexion_server();
+            Connection con = Conn.getConexion();
+            Statement stmt = con.createStatement();
+            ResultSet rs = stmt.executeQuery("select COUNT(NOMBRE) as U from USUARIOS where NOMBRE= 'Bar' and estado = 1" );
+            rs.next();
+            int USUARIO = rs.getInt("U");
+            if (USUARIO == 1) {
+
+                estado = 1;
+
+            } 
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "ERROR CONTACTE AL ADMINISTRADOR DEL SISTEMA" + e);
+        }
+    
     }
 
     /**
@@ -205,18 +238,25 @@ public class NuevaORDEN extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void T1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T1MousePressed
-        crear();
+       if(estado == 1){crear();}
+       else {
+                
+                 JOptionPane.showMessageDialog(null, "ERROR GRAVE");
+            }
     }//GEN-LAST:event_T1MousePressed
 
     private void T3MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_T3MousePressed
-
+     
+        if(estado == 1){
         Contraseña F = new Contraseña();
         F.setVisible(true);
-        this.dispose();
-
-
+        this.dispose(); 
+        }else {
+                
+                 JOptionPane.showMessageDialog(null, "ERROR GRAVE");
+            }
     }//GEN-LAST:event_T3MousePressed
-
+    
     /**
      * @param args the command line arguments
      */
@@ -247,7 +287,9 @@ public class NuevaORDEN extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                
                 new NuevaORDEN().setVisible(true);
+                
             }
         });
     }

@@ -14,14 +14,11 @@ import javax.swing.JOptionPane;
  * @author jluis
  */
 
-public class BDConexionSP {
+public class BDConexion_server {
     
-      
-    //public static final String URL = "jdbc:mysql://localhost:3306/sportbar?useTimezone=true&serverTimezone=UTC";
-    //public static final String URL = "jdbc:mysql://26.177.160.206:3306/sportbar?useTimezone=true&serverTimezone=UTC";
-    public static final String URL = "jdbc:mysql://26.252.190.76:3306/sportbar?useTimezone=true&serverTimezone=UTC";
-    public static final String USER = "amapola";
-    public static final String CLAVE = "sportbar";
+    public static final String URL = "jdbc:mysql://26.178.84.253:3306/server?useTimezone=true&serverTimezone=UTC";//administrador
+    public static final String USER = "AdminApp";
+    public static final String CLAVE = "Coast@cm";
      
     public Connection getConexion(){
         Connection con = null;
@@ -30,7 +27,7 @@ public class BDConexionSP {
             con = (Connection) DriverManager.getConnection(URL, USER, CLAVE);
         }catch(Exception e){
             System.out.println("Error: " + e.getMessage());
-            JOptionPane.showMessageDialog(null,"ERROR: "+e);
+            JOptionPane.showMessageDialog(null,"ERROR GRAVE CONTACTE AL ADMINISTRADOR DEL SISTEMA");
         }
         return con;
     }

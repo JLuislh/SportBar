@@ -694,7 +694,7 @@ public class INICIO extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel2MouseClicked
-     MenuCervezas op2 = new MenuCervezas(id_pedido);
+    MenuCervezas op2 = new MenuCervezas(id_pedido);
     op2.setSize(1025, 385);
     op2.setLocation(0, 0);
     P9.removeAll();
